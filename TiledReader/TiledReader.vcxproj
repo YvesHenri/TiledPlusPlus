@@ -287,14 +287,75 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Includes\Dependencies\Miniz\miniz.h" />
     <ClInclude Include="Includes\Dependencies\Pugi\pugiconfig.hpp" />
     <ClInclude Include="Includes\Dependencies\Pugi\pugixml.hpp" />
+    <ClInclude Include="Includes\File\Enum\Compression.h" />
+    <ClInclude Include="Includes\File\Enum\Encoding.h" />
+    <ClInclude Include="Includes\File\Enum\Flip.h" />
+    <ClInclude Include="Includes\File\Enum\Orientation.h" />
+    <ClInclude Include="Includes\File\Enum\RenderOrder.h" />
+    <ClInclude Include="Includes\File\Enum\Shape.h" />
+    <ClInclude Include="Includes\File\File.h" />
+    <ClInclude Include="Includes\Event\Delegate\Delegate.h" />
+    <ClInclude Include="Includes\Event\Delegate\Exception\UnboundDelegateException.h" />
+    <ClInclude Include="Includes\Event\Delegate\Functor\FreeFunctionFunctor.h" />
+    <ClInclude Include="Includes\Event\Delegate\Functor\Functor.h" />
+    <ClInclude Include="Includes\Event\Delegate\Functor\MemberConstFunctionFunctor.h" />
+    <ClInclude Include="Includes\Event\Delegate\Functor\MemberFunctionFunctor.h" />
+    <ClInclude Include="Includes\Event\Event.h" />
+    <ClInclude Include="Includes\File\Parser\IParser.h" />
+    <ClInclude Include="Includes\File\Parser\PugiParser.h" />
+    <ClInclude Include="Includes\File\Path.h" />
+    <ClInclude Include="Includes\File\Reader\TiledReader.h" />
+    <ClInclude Include="Includes\File\Structure\Animation.h" />
+    <ClInclude Include="Includes\File\Structure\Color.h" />
+    <ClInclude Include="Includes\File\Structure\Data.h" />
+    <ClInclude Include="Includes\File\Structure\Frame.h" />
+    <ClInclude Include="Includes\File\Structure\Header.h" />
+    <ClInclude Include="Includes\File\Structure\Image.h" />
+    <ClInclude Include="Includes\File\Structure\ImageLayer.h" />
+    <ClInclude Include="Includes\File\Structure\Layer.h" />
+    <ClInclude Include="Includes\File\Structure\Object.h" />
+    <ClInclude Include="Includes\File\Structure\ObjectLayer.h" />
+    <ClInclude Include="Includes\File\Structure\Point.h" />
+    <ClInclude Include="Includes\File\Structure\Property.h" />
+    <ClInclude Include="Includes\File\Structure\PropertySet.h" />
+    <ClInclude Include="Includes\File\Structure\Tile.h" />
+    <ClInclude Include="Includes\File\Structure\TileLayer.h" />
+    <ClInclude Include="Includes\File\Structure\TileSet.h" />
     <ClInclude Include="Includes\Macros\Exporter.h" />
     <ClInclude Include="Includes\Macros\OS.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Includes\Dependencies\Miniz\miniz.c" />
+    <ClCompile Include="Sources\Dependencies\Miniz\miniz.c" />
     <ClCompile Include="Sources\Dependencies\Pugi\pugixml.cpp" />
+    <ClCompile Include="Sources\File\File.cpp" />
+    <ClCompile Include="Sources\File\Parser\PugiParser.cpp" />
+    <ClCompile Include="Sources\File\Path.cpp" />
+    <ClCompile Include="Sources\File\Reader\TiledReader.cpp" />
+    <ClCompile Include="Sources\File\Structure\Color.cpp" />
+    <ClCompile Include="Sources\File\Structure\Data.cpp" />
+    <ClCompile Include="Sources\File\Structure\Frame.cpp" />
+    <ClCompile Include="Sources\File\Structure\Header.cpp" />
+    <ClCompile Include="Sources\File\Structure\Image.cpp" />
+    <ClCompile Include="Sources\File\Structure\ImageLayer.cpp" />
+    <ClCompile Include="Sources\File\Structure\Layer.cpp" />
+    <ClCompile Include="Sources\File\Structure\Object.cpp" />
+    <ClCompile Include="Sources\File\Structure\ObjectLayer.cpp" />
+    <ClCompile Include="Sources\File\Structure\Point.cpp" />
+    <ClCompile Include="Sources\File\Structure\Property.cpp" />
+    <ClCompile Include="Sources\File\Structure\PropertySet.cpp" />
+    <ClCompile Include="Sources\File\Structure\Tile.cpp" />
+    <ClCompile Include="Sources\File\Structure\TileLayer.cpp" />
+    <ClCompile Include="Sources\File\Structure\TileSet.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Includes\Event\Delegate\Functor\Inline\FreeFunctionFunctor.inl" />
+    <None Include="Includes\Event\Delegate\Functor\Inline\MemberConstFunctionFunctor.inl" />
+    <None Include="Includes\Event\Delegate\Functor\Inline\MemberFunctionFunctor.inl" />
+    <None Include="Includes\Event\Delegate\Inline\Delegate.inl" />
+    <None Include="Includes\Event\Inline\Event.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
