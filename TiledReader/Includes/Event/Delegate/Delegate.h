@@ -1,5 +1,5 @@
-#ifndef DELEGATE_H
-#define DELEGATE_H
+#ifndef TPP_EVENT_DELEGATE_DELEGATE_H
+#define TPP_EVENT_DELEGATE_DELEGATE_H
 
 #include <memory>
 

@@ -1,5 +1,5 @@
-#ifndef FUNCTOR_H
-#define FUNCTOR_H
+#ifndef TPP_EVENT_DELEGATE_FUNCTOR_FUNCTOR_H
+#define TPP_EVENT_DELEGATE_FUNCTOR_FUNCTOR_H
 
 #include "..\Exception\UnboundDelegateException.h"
 

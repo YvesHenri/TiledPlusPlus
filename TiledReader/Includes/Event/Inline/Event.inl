@@ -1,3 +1,6 @@
+#ifndef TPP_EVENT_EVENT_IMPL
+#define TPP_EVENT_EVENT_IMPL
+
 namespace evt
 {
 	template <typename... TArgs>
@@ -46,3 +49,5 @@ namespace evt
 		return m_muted;
 	}
 }
+
+#endif
