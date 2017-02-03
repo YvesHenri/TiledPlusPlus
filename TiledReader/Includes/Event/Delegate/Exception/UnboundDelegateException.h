@@ -3,9 +3,11 @@
 
 #include <exception>
 
+#include "Macros\Exporter.h"
+
 namespace evt
 {
-	class UnboundDelegateException final : public std::exception
+	class TILEDPP_API UnboundDelegateException final : public std::exception
 	{
 	public:
 		UnboundDelegateException() : std::exception("Unbound delegate")
