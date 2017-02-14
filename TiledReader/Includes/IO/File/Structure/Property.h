@@ -4,15 +4,15 @@
 #include <string>
 #include <limits>
 
-#include "Macros\Exporter.h"
+#include "Macros\API.h"
 
 namespace tpp
 {
-	class TILEDPP_API Property
+	class TILEDPP_API Property final
 	{
 	public:
-		Property();
-		Property(std::string value);
+		Property() = default;
+		Property(const std::string& value);
 
 		int asInt() const;
 		long asLong() const;

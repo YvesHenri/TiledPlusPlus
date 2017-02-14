@@ -6,7 +6,7 @@
 namespace tpp
 {
 	// Represents the <image> tag
-	struct TILEDPP_API Image
+	struct TILEDPP_API Image final
 	{
 		Image();
 

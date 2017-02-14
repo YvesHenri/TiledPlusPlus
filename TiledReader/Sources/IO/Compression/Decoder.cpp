@@ -1,4 +1,4 @@
-#include "IO\Encoding\Decoder.h"
+#include "IO\Compression\Decoder.h"
 
 namespace tpp
 {
@@ -11,18 +11,18 @@ namespace tpp
 		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 	};
 
-	std::string Decoder::decode(const tpp::Data& data)
+	std::string Decoder::decode(const std::string& data, tpp::Compression compression, tpp::Encoding encoding)
 	{
-		std::string decoded = data.value;
+		std::string decoded = data;
 
 		// Decode
-		switch (data.encoding)
+		switch (encoding)
 		{
 		case tpp::Encoding::Base64:
 			decoded = decodeBase64UsingLookup(decoded);
 
 			// Decompress
-			switch (data.compression)
+			switch (compression)
 			{
 			case tpp::Compression::GZIP:
 				decoded = decompressUsingGZIP(decoded);
@@ -39,7 +39,7 @@ namespace tpp
 		return decoded;
 	}
 
-	std::string Decoder::decodeBase64UsingLookup(std::string const& source)
+	std::string Decoder::decodeBase64UsingLookup(const std::string& source)
 	{
 		// Length must be divisible by 4 for a base64 string to be decoded (valid)
 		assert(source.size() % 4 == 0 && "Data string might be corrupted");
@@ -57,7 +57,7 @@ namespace tpp
 		unsigned int sourceLength = source.size();
 		unsigned int outLength = (sourceLength + 1) / 4 * 3; // Formula: encSize = ((decSize / 3) + 1) * 4;
 
-															 // This makes it up to 6 times faster (instead of appending the characters)
+		// This makes it up to 6 times faster (instead of appending the characters)
 		out.resize(outLength);
 
 		for (unsigned int i = 0; i < sourceLength; i += 4)

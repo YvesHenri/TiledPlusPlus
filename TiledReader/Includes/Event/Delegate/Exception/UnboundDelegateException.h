@@ -3,7 +3,10 @@
 
 #include <exception>
 
-#include "Macros\Exporter.h"
+#include "Macros\API.h"
+
+// non dll - interface class 'std::exception' used as base for dll - interface class 'evt::UnboundDelegateException'
+#pragma warning(disable: 4275)
 
 namespace evt
 {
@@ -13,7 +16,7 @@ namespace evt
 		UnboundDelegateException() : std::exception("Unbound delegate")
 		{}
 
-		UnboundDelegateException(const char* const message) : std::exception(message)
+		UnboundDelegateException(const char* message) : std::exception(message)
 		{}
 	};
 }

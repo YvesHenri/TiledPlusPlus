@@ -14,7 +14,6 @@ namespace tpp
 		ObjectLayer();
 
 		tpp::Color color;
-
 		std::map<unsigned int, tpp::Object> objects;
 	};
 }

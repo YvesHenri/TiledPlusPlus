@@ -5,35 +5,29 @@
 
 #include "IO\Path\Path.h"
 #include "IO\File\FileMetadata.h"
-#include "Macros\Exporter.h"
+#include "Macros\API.h"
 
 namespace tpp
 {
-	// Represents a Tiled's TMX file. This object is immutable. This class is final.
+	// Represents a Tiled's TMX file. This object is immutable.
 	class TILEDPP_API File final
 	{
 	public:
-		File() {};
-		File(std::string path, tpp::FileMetadata metadata);
+		File() = default;
+		File(tpp::File&&) = default;
+		File(const tpp::File&) = delete;
+		File(const tpp::Path& path, tpp::FileMetadata& metadata);
 
-		const std::string& getName();
-		const std::string& getPath();
-		const std::string& getFullPath();
-		const tpp::Header& getHeader();
-		const tpp::TileSets& getTileSets();
-		const tpp::TileLayers& getTileLayers();
-		const tpp::ImageLayers& getImageLayers();
-		const tpp::ObjectLayers& getObjectLayers();
+		File& operator = (tpp::File&&) = default;
+		File& operator = (const tpp::File&) = delete;
 
-	private:
-		bool isParsable() const;
-		bool isValidExtension() const;
+		const tpp::Path& getPath() const;
+		const tpp::Header& getHeader() const;
+		const tpp::Layers& getLayers() const;
+		const tpp::TileSets& getTileSets() const;
 
 	private:
-		std::string m_name;
-		std::string m_path;
-		std::string m_fullPath;
-		std::string m_extension;
+		tpp::Path m_path;
 		tpp::FileMetadata m_metadata;
 	};
 }

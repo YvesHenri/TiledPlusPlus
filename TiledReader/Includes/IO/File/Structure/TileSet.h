@@ -8,7 +8,7 @@
 namespace tpp
 {
 	// Represents the <tileset> tag
-	struct TILEDPP_API TileSet
+	struct TILEDPP_API TileSet final
 	{
 		TileSet();
 

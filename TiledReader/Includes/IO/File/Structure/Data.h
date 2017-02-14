@@ -5,15 +5,13 @@
 
 #include "IO\File\Enum\Encoding.h"
 #include "IO\File\Enum\Compression.h"
-#include "Macros\Exporter.h"
+#include "Macros\API.h"
 
 namespace tpp
 {
 	// Represents the <data> tag
-	struct TILEDPP_API Data
+	struct TILEDPP_API Data final
 	{
-		Data();
-
 		std::string value;
 		tpp::Encoding encoding;
 		tpp::Compression compression;

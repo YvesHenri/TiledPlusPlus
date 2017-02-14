@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Includes\Macros\Exporter.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Includes\Macros\OS.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -69,15 +66,6 @@
     <ClInclude Include="Includes\IO\File\Enum\Shape.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Includes\IO\File\Parser\IParser.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Includes\IO\File\Parser\PugiParser.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Includes\IO\File\Reader\TiledReader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Includes\IO\File\Structure\Animation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -126,16 +114,28 @@
     <ClInclude Include="Includes\IO\File\Structure\TileSet.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Includes\IO\File\File.h">
+    <ClInclude Include="Includes\IO\Path\Path.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Includes\IO\Compression\Decoder.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Includes\IO\File\FileMetadata.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Includes\IO\Path\Path.h">
+    <ClInclude Include="Includes\IO\File\File.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Includes\IO\Encoding\Decoder.h">
+    <ClInclude Include="Includes\Macros\API.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Includes\IO\File\Builder\FileParser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Includes\IO\File\Builder\FileReader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Includes\IO\File\Enum\Material.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -146,16 +146,7 @@
     <ClCompile Include="Sources\Dependencies\Miniz\miniz.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Sources\IO\File\Parser\PugiParser.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Sources\IO\File\Reader\TiledReader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Sources\IO\File\Structure\Color.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Sources\IO\File\Structure\Data.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Sources\IO\File\Structure\Frame.cpp">
@@ -167,16 +158,10 @@
     <ClCompile Include="Sources\IO\File\Structure\Image.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Sources\IO\File\Structure\ImageLayer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Sources\IO\File\Structure\Layer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Sources\IO\File\Structure\Object.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Sources\IO\File\Structure\ObjectLayer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Sources\IO\File\Structure\Point.cpp">
@@ -197,13 +182,28 @@
     <ClCompile Include="Sources\IO\File\Structure\TileSet.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Sources\IO\File\File.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Sources\IO\Path\Path.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Sources\IO\Encoding\Decoder.cpp">
+    <ClCompile Include="Sources\IO\File\FileMetadata.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\IO\File\File.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\IO\Compression\Decoder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\IO\File\Builder\FileParser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\IO\File\Builder\FileReader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\IO\File\Structure\ObjectLayer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\IO\File\Structure\ImageLayer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -4,12 +4,12 @@
 
 #include "IO\File\Enum\Orientation.h"
 #include "IO\File\Enum\RenderOrder.h"
-#include "Macros\Exporter.h"
+#include "Macros\API.h"
 
 namespace tpp
 {
 	// Represents the <map> tag
-	struct TILEDPP_API Header
+	struct TILEDPP_API Header final
 	{
 		Header();
 

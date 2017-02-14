@@ -2,6 +2,6 @@
 
 namespace tpp
 {
-	ImageLayer::ImageLayer() : tpp::Layer()
+	ImageLayer::ImageLayer() : tpp::Layer(tpp::Material::Image)
 	{}
 }

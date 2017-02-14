@@ -53,19 +53,19 @@ namespace tpp
 		return operator=(std::string(html));
 	}
 
-	Color& Color::operator=(std::string& html)
+	Color& Color::operator=(const std::string& html)
 	{
 		if (!html.empty())
 		{
-			unsigned int hashtagOccurrence = html.find_first_of("#");
+			auto hashtagOccurrence = html.find_first_of("#");
+			auto string = html;
 
 			// Remove the hashtag character (if any)
-			if (hashtagOccurrence != std::string::npos) {
-				html = html.substr(hashtagOccurrence + 1U);
-			}
+			if (hashtagOccurrence != std::string::npos) 
+				string = html.substr(hashtagOccurrence + 1U);
 
 			// Convert the hexadecimal string
-			m_argb = std::stoul(html, 0, 16);
+			m_argb = std::stoul(string, 0, 16);
 
 			m_r = (m_argb >> 16) & 0xFF;
 			m_g = (m_argb >> 8) & 0xFF;

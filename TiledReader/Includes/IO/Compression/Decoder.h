@@ -3,8 +3,10 @@
 #include <sstream>
 #include <assert.h>
 
-#include "IO\File\Structure\Data.h"
+#include "IO\File\Enum\Encoding.h"
+#include "IO\File\Enum\Compression.h"
 #include "Dependencies\Miniz\miniz.h"
+#include "Macros\API.h"
 
 // ZLIB stuff
 #define CHUNK_SIZE 32768
@@ -17,7 +19,7 @@ namespace tpp
 	class TILEDPP_API Decoder
 	{
 	public:
-		static std::string decode(const tpp::Data& data);
+		static std::string decode(const std::string& data, tpp::Compression compression, tpp::Encoding encoding);
 
 	private:
 		static std::string decodeBase64UsingLookup(const std::string& source);

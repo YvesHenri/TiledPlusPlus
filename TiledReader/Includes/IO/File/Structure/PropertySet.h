@@ -8,14 +8,14 @@
 namespace tpp
 {
 	// Simple std::map wrapper for the <properties> tag
-	class TILEDPP_API PropertySet
+	class TILEDPP_API PropertySet final
 	{
 	public:
 		unsigned int size() const;
 
-		bool isEmpty() const;
-		bool has(std::string key);
-		void add(std::string key, std::string value);
+		bool isEmpty();
+		bool has(const std::string& key);
+		void add(const std::string& key, const std::string& value);
 
 		std::map<std::string, tpp::Property>::iterator begin();
 		std::map<std::string, tpp::Property>::iterator end();

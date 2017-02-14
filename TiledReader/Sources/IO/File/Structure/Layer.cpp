@@ -2,12 +2,13 @@
 
 namespace tpp
 {
-	Layer::Layer()
+	Layer::Layer(tpp::Material material)
 		: name("")
 		, opacity(1.0)
 		, isVisible(true)
 		, isOpaque(false)
 		, x(0)
 		, y(0)
+		, material(material)
 	{}
 }

@@ -2,11 +2,7 @@
 
 namespace tpp
 {
-	Property::Property()
-		: m_value("")
-	{}
-
-	Property::Property(std::string value)
+	Property::Property(const std::string& value)
 		: m_value(value)
 	{}
 

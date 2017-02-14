@@ -1,5 +1,5 @@
-#ifndef TPP_MACROS_EXPORTER_H_
-#define TPP_MACROS_EXPORTER_H_
+#ifndef TPP_MACROS_API_H
+#define TPP_MACROS_API_H
 
 #include "OS.h"
 
@@ -7,10 +7,11 @@
 #if !defined(TILEDPP_STATIC)
 	// Windows
 	#if defined(TILEDPP_OS_WINDOWS)
-		#define TILEDPP_API __declspec(dllexport)
+		#define TILEDPP_API		   __declspec(dllexport)
 		#define TILEDPP_API_IMPORT __declspec(dllimport)
 
-		// For Visual C++ compilers, we also need to turn off this annoying C4251 warning
+		// For Visual C++ compilers, we also need to turn off this annoying C4251 warning:
+		// "Needs to have dll-interface to be used by clients of class"
 		#ifdef _MSC_VER
 			#pragma warning(disable: 4251)
 		#endif
@@ -32,4 +33,4 @@
 	#define TILEDPP_API_IMPORT
 #endif // !defined(TILEDPP_STATIC)
 
-#endif // ifndef TPP_MACROS_EXPORTER_H_
+#endif // ifndef TPP_MACROS_API_H

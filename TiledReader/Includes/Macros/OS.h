@@ -1,5 +1,5 @@
-#ifndef TPP_MACROS_OS_H_
-#define TPP_MACROS_OS_H_
+#ifndef TPP_MACROS_OS_H
+#define TPP_MACROS_OS_H
 
 ////////////////////////////////////////////////////////////
 // Identify the operating system
@@ -42,4 +42,4 @@
 
 #endif // defined(_WIN32)
 
-#endif // ifndef TPP_MACROS_OS_H_
+#endif // ifndef TPP_MACROS_OS_H

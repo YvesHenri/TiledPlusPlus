@@ -3,17 +3,17 @@
 
 #include <string>
 
-#include "Macros\Exporter.h"
+#include "Macros\API.h"
 
 namespace tpp
 {
 	// Wrapper class that enables easy conversion from html color string to a color object.
 	// The alpha value must precede the RGB value. Ex.: 0xFFAABBCC, where FF is the alpha value.
-	class TILEDPP_API Color 
+	class TILEDPP_API Color final
 	{
 	public:
 		Color(unsigned long argb);
-		Color(unsigned char a = 255, unsigned char r = 255, unsigned char g = 255, unsigned char b = 255);
+		Color(unsigned char a = 0xFF, unsigned char r = 0xA0, unsigned char g = 0xA0, unsigned char b = 0xA4);
 
 		const unsigned long argb();
 		const unsigned char r();
@@ -22,7 +22,7 @@ namespace tpp
 		const unsigned char a();
 
 		Color& operator=(const char* html);
-		Color& operator=(std::string& html);
+		Color& operator=(const std::string& html);
 
 	private:
 		unsigned long m_argb;

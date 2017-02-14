@@ -8,7 +8,7 @@
 namespace tpp
 {
 	// Represents the <animation> tag
-	struct TILEDPP_API Animation
+	struct TILEDPP_API Animation final
 	{
 		std::vector<tpp::Frame> frames;
 	};

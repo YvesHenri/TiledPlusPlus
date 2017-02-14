@@ -7,19 +7,19 @@ namespace tpp
 		return m_properties.size();
 	}
 
-	bool PropertySet::isEmpty() const
+	bool PropertySet::isEmpty()
 	{
 		return m_properties.empty();
 	}
 
-	bool PropertySet::has(std::string key)
+	bool PropertySet::has(const std::string& key)
 	{
 		return m_properties.find(key) != m_properties.end();
 	}	
 
-	void PropertySet::add(std::string key, std::string value)
+	void PropertySet::add(const std::string& key, const std::string& value)
 	{
-		m_properties.insert(std::pair<std::string, tpp::Property>(key, tpp::Property(value)));
+		m_properties.emplace(key, value); // Calls in-place tpp::Property(value)
 	}
 
 	std::map<std::string, tpp::Property>::iterator PropertySet::begin()

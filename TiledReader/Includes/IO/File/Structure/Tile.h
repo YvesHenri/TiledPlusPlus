@@ -12,7 +12,7 @@ namespace tpp
 	struct TileLayer;
 
 	// Represents the <tile> tag
-	struct TILEDPP_API Tile
+	struct TILEDPP_API Tile final
 	{
 		Tile();
 

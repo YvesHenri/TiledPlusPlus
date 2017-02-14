@@ -1,12 +1,12 @@
 #ifndef TPP_STRUCTURE_FRAME_H
 #define TPP_STRUCTURE_FRAME_H
 
-#include "Macros\Exporter.h"
+#include "Macros\API.h"
 
 namespace tpp
 {
 	// Represents the <frame> tag
-	struct TILEDPP_API Frame
+	struct TILEDPP_API Frame final
 	{
 		Frame();
 

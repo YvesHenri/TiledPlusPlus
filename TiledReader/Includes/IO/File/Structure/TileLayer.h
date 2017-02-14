@@ -13,7 +13,7 @@ namespace tpp
 	struct TILEDPP_API TileLayer final : public tpp::Layer
 	{
 		TileLayer();
-
+		
 		unsigned int area;
 		unsigned int width;
 		unsigned int height;

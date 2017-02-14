@@ -14,7 +14,7 @@ namespace tpp
 	struct ObjectLayer;
 
 	// Represents the <object> tag
-	struct TILEDPP_API Object
+	struct TILEDPP_API Object final
 	{
 		Object();
 
