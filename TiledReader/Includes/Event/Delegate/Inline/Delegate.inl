@@ -4,65 +4,65 @@
 namespace evt
 {
 	template <typename TReturn, typename... TArgs>
-	evt::Delegate<TReturn(TArgs...)>::Delegate()
+	Delegate<TReturn(TArgs...)>::Delegate()
 	{
 		reset();
 	}
 
 	template <typename TReturn, typename... TArgs>
-	evt::Delegate<TReturn(TArgs...)>::Delegate(TReturn(*freeFunction)(TArgs...))
+	Delegate<TReturn(TArgs...)>::Delegate(TReturn(*freeFunction)(TArgs...))
 	{
 		reset(freeFunction);
 	}
 
 	template <typename TReturn, typename... TArgs>
 	template <class TClass>
-	evt::Delegate<TReturn(TArgs...)>::Delegate(TReturn(TClass::*memberFunction)(TArgs...), TClass* instance)
+	Delegate<TReturn(TArgs...)>::Delegate(TReturn(TClass::*memberFunction)(TArgs...), TClass* instance)
 	{
 		reset(memberFunction, instance);
 	}
 
 	template <typename TReturn, typename... TArgs>
 	template <class TClass>
-	evt::Delegate<TReturn(TArgs...)>::Delegate(TReturn(TClass::*memberConstFunction)(TArgs...) const, TClass* instance)
+	Delegate<TReturn(TArgs...)>::Delegate(TReturn(TClass::*memberConstFunction)(TArgs...) const, TClass* instance)
 	{
 		reset(memberConstFunction, instance);
 	}
 
 	template <typename TReturn, typename... TArgs>
-	void evt::Delegate<TReturn(TArgs...)>::reset()
+	void Delegate<TReturn(TArgs...)>::reset()
 	{
 		m_functor.reset();
 	}
 
 	template <typename TReturn, typename... TArgs>
-	void evt::Delegate<TReturn(TArgs...)>::reset(Delegate* delegate)
+	void Delegate<TReturn(TArgs...)>::reset(Delegate* delegate)
 	{
 		m_functor = delegate->m_functor;
 	}
 
 	template <typename TReturn, typename... TArgs>
-	void evt::Delegate<TReturn(TArgs...)>::reset(TReturn(*freeFunction)(TArgs...))
+	void Delegate<TReturn(TArgs...)>::reset(TReturn(*freeFunction)(TArgs...))
 	{
 		m_functor.reset(new FreeFunctionFunctor<TReturn(TArgs...)>(freeFunction));
 	}
 
 	template <typename TReturn, typename... TArgs>
 	template <typename TClass>
-	void evt::Delegate<TReturn(TArgs...)>::reset(TReturn(TClass::*memberFunction)(TArgs...), TClass* instance)
+	void Delegate<TReturn(TArgs...)>::reset(TReturn(TClass::*memberFunction)(TArgs...), TClass* instance)
 	{
 		m_functor.reset(new MemberFunctionFunctor<TReturn(TClass::*)(TArgs...)>(memberFunction, instance));
 	}
 
 	template <typename TReturn, typename... TArgs>
 	template <typename TClass>
-	void evt::Delegate<TReturn(TArgs...)>::reset(TReturn(TClass::*memberConstFunction)(TArgs...) const, TClass* instance)
+	void Delegate<TReturn(TArgs...)>::reset(TReturn(TClass::*memberConstFunction)(TArgs...) const, TClass* instance)
 	{
 		m_functor.reset(new MemberConstFunctionFunctor<TReturn(TClass::*)(TArgs...) const>(memberConstFunction, instance));
 	}
 
 	template <typename TReturn, typename... TArgs>
-	TReturn evt::Delegate<TReturn(TArgs...)>::invoke(TArgs&&... args)
+	TReturn Delegate<TReturn(TArgs...)>::invoke(TArgs&... args)
 	{
 		if (!m_functor)
 			throw evt::UnboundDelegateException();
@@ -71,7 +71,7 @@ namespace evt
 	}
 
 	template <typename TReturn, typename... TArgs>
-	bool evt::Delegate<TReturn(TArgs...)>::operator==(const Delegate& delegate)
+	bool Delegate<TReturn(TArgs...)>::operator==(const Delegate<TReturn(TArgs...)>& delegate)
 	{
 		TFunctor* self = m_functor.get();
 		TFunctor* target = delegate.m_functor.get();

@@ -27,7 +27,7 @@ namespace tpp
 		const tpp::TileSets& getTileSets() const;
 
 	private:
-		tpp::Path m_path;
+		const tpp::Path m_path;
 		tpp::FileMetadata m_metadata;
 	};
 }

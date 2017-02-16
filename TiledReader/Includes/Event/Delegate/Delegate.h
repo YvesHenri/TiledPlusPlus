@@ -15,7 +15,7 @@ namespace evt
 
 	// Specialization for a delegate
 	template <typename TReturn, typename... TArgs>
-	class evt::Delegate<TReturn(TArgs...)> final
+	class Delegate<TReturn(TArgs...)> final
 	{
 	private:
 		using TFunctor = Functor<TReturn(TArgs...)>;
@@ -54,10 +54,10 @@ namespace evt
 		void reset(TReturn(TClass::*memberConstFunction)(TArgs...) const, TClass* instance);
 
 		// Invokes this delegate
-		TReturn invoke(TArgs&&... args);
+		TReturn invoke(TArgs&... args);
 
 		// Checks whether both delegates point to the same function
-		bool operator == (const Delegate& delegate);
+		bool operator == (const Delegate<TReturn(TArgs...)>& delegate);
 
 	private:
 		TFunctorSharedPtr m_functor;

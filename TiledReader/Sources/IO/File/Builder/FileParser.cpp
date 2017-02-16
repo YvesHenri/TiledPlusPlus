@@ -93,6 +93,8 @@ namespace tpp
 				header.objectsCount++;
 		}
 
+		onHeaderParsed.fire(&header);
+
 		return header;
 	}
 
@@ -177,7 +179,8 @@ namespace tpp
 				}
 			}
 
-			sets.emplace_back(set);
+			onTileSetParsed.fire(&set);
+			sets.emplace_back(std::move(set));
 		}
 
 		return sets;
@@ -230,6 +233,8 @@ namespace tpp
 
 			imageLayer->properties = std::move(properties);
 		}
+
+		onImageLayerParsed.fire(imageLayer);
 
 		return imageLayer;
 	}
@@ -289,6 +294,8 @@ namespace tpp
 			tileLayer->properties = std::move(properties);
 		}
 
+		onTileLayerParsed.fire(tileLayer);
+
 		return tileLayer;
 	}
 
@@ -323,6 +330,8 @@ namespace tpp
 		// Objects
 		/*for (const auto& objectNode : objectLayerNode.children("object"))
 			buildObject(objectNode);*/
+
+		onObjectLayerParsed.fire(objectLayer);
 
 		return objectLayer;
 	}

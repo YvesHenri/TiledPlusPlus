@@ -12,13 +12,28 @@ namespace tpp
 	class TILEDPP_API FileReader final
 	{
 	public:
-		FileReader() = default;
+		FileReader();
 		~FileReader() = default;
 
 		tpp::File read(const std::string& path);
 
 	private:
-		void decompress(tpp::TileLayer& layer);
+		void onTileParsed(tpp::Tile*);
+		void onObjectParsed(tpp::Object*);
+		void onHeaderParsed(tpp::Header*);
+		void onTileSetParsed(tpp::TileSet*);
+		void onTileLayerParsed(tpp::TileLayer*);
+		void onImageLayerParsed(tpp::ImageLayer*);
+		void onObjectLayerParsed(tpp::ObjectLayer*);
+
+	public:
+		evt::Event<const tpp::Tile&> onTileRead;
+		evt::Event<const tpp::Object&> onObjectRead;
+		evt::Event<const tpp::Header&> onHeaderRead;
+		evt::Event<const tpp::TileSet&> onTileSetRead;
+		evt::Event<const tpp::TileLayer&> onTileLayerRead;
+		evt::Event<const tpp::ImageLayer&> onImageLayerRead;
+		evt::Event<const tpp::ObjectLayer&> onObjectLayerRead;
 
 	private:
 		tpp::FileParser m_parser;

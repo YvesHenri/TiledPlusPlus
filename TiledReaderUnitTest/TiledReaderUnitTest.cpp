@@ -53,12 +53,19 @@ void print(tpp::File* file)
 	}
 }
 
+void onHeaderBuilt(const tpp::Header& header)
+{
+	printf("MEEEEEEEEEEEEEEP \n");
+}
+
 void test()
 {
 	tpp::FileReader reader;
 
 	try
 	{
+		reader.onHeaderBuilt.attach(evt::Delegate<void(const tpp::Header&)>(&onHeaderBuilt));
+
 		tpp::File meep = reader.read("Resources//Maps//attr.tmx");
 		tpp::File* file; // = &reader.read("Resources//Maps//attr.tmx"); // Error
 
