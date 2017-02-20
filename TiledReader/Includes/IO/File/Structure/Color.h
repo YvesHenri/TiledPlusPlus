@@ -8,7 +8,7 @@
 namespace tpp
 {
 	// Wrapper class that enables easy conversion from html color string to a color object.
-	// The alpha value must precede the RGB value. Ex.: 0xFFAABBCC, where FF is the alpha value.
+	// The alpha value must precede the RGB value. Ex.: 0xAARRGGBB, where AA is the alpha value.
 	class TILEDPP_API Color final
 	{
 	public:

@@ -22,18 +22,16 @@ namespace tpp
 
 				// Do not copy data. Instead, we'll move for faster processing
 				metadata.header = std::move(parseHeader(mapNode));
-				metadata.sets = std::move(parseTextures(mapNode));
+				metadata.sets = std::move(parseTileSets(mapNode));
 				metadata.layers = std::move(parseLayers(mapNode));
 
 				return metadata;
 			}
-			else {
+			else
 				throw std::runtime_error("File does not have a <map> tag!");
-			}
 		}
-		else {
+		else
 			throw std::runtime_error(result.description());
-		}
 	}
 
 	// Optimized - TODO: Check layer names validation (counting)
@@ -41,14 +39,19 @@ namespace tpp
 	{
 		tpp::Header header;
 
-		header.width = mapNode.attribute("width").as_int();
-		header.height = mapNode.attribute("height").as_int();
-		header.tileWidth = mapNode.attribute("tilewidth").as_int();
-		header.tileHeight = mapNode.attribute("tileheight").as_int();
+		header.width = mapNode.attribute("width").as_uint();
+		header.height = mapNode.attribute("height").as_uint();
+		header.tileWidth = mapNode.attribute("tilewidth").as_uint();
+		header.tileHeight = mapNode.attribute("tileheight").as_uint();
+		header.hexSideLength = mapNode.attribute("hexsidelength").as_uint(); // Since 0.11
+		header.backgroundColor = mapNode.attribute("backgroundcolor").as_string();
+
+		const std::string orientation = mapNode.attribute("orientation").as_string("orthogonal");
+		const std::string renderOrder = mapNode.attribute("renderorder").as_string("right-down");
+		const std::string staggerAxis = mapNode.attribute("staggeraxis").as_string("none");
+		const std::string staggerIndex = mapNode.attribute("staggerindex").as_string("none");
 
 		// Orientation (since 0.9). Default: Orthogonal
-		const std::string orientation = mapNode.attribute("orientation").as_string("orthogonal");
-
 		if (orientation == "orthogonal")
 			header.orientation = tpp::Orientation::Orthogonal;
 		else if (orientation == "isometric")
@@ -59,8 +62,6 @@ namespace tpp
 			header.orientation = tpp::Orientation::Hexagonal;
 
 		// Render order (since 0.10). Default: RightDown
-		const std::string renderOrder = mapNode.attribute("renderorder").as_string("right-down");
-
 		if (renderOrder == "right-down")
 			header.renderOrder = tpp::RenderOrder::RightDown;
 		else if (renderOrder == "right-up")
@@ -69,6 +70,18 @@ namespace tpp
 			header.renderOrder = tpp::RenderOrder::LeftDown;
 		else if (renderOrder == "left-up")
 			header.renderOrder = tpp::RenderOrder::LeftUp;
+
+		// Stagger axis (since 0.11). Default: None
+		if (staggerAxis == "x")
+			header.staggerAxis = tpp::StaggerAxis::X;
+		else if (staggerAxis == "y")
+			header.staggerAxis = tpp::StaggerAxis::Y;
+
+		// Stagger index (since 0.11). Default: None
+		if (staggerIndex == "odd")
+			header.staggerIndex = tpp::StaggerIndex::Odd;
+		else if (staggerIndex == "even")
+			header.staggerIndex = tpp::StaggerIndex::Even;
 
 		// Number of sprite sheets used
 		for (const auto& setNode : mapNode.children("tileset"))
@@ -98,7 +111,6 @@ namespace tpp
 		return header;
 	}
 
-	// Optimized
 	tpp::PropertySet FileParser::parseProperties(const pugi::xml_node& propertiesNode)
 	{
 		tpp::PropertySet properties;
@@ -107,15 +119,15 @@ namespace tpp
 		{
 			std::string name = propertyNode.attribute("name").as_string();
 			std::string value = propertyNode.attribute("value").as_string();
+			std::string type = propertyNode.attribute("type").as_string("string"); // Since 0.16
 
-			properties.add(name, value);
+			properties.emplace(name, value, type);
 		}
 
 		return properties;
 	}
 
-	// Optimized
-	tpp::TileSets FileParser::parseTextures(const pugi::xml_node& mapNode)
+	tpp::TileSets FileParser::parseTileSets(const pugi::xml_node& mapNode)
 	{
 		tpp::TileSets sets;
 
@@ -127,6 +139,7 @@ namespace tpp
 			set.firstTileId = setNode.attribute("firstgid").as_uint();
 			set.tileWidth = setNode.attribute("tilewidth").as_uint();
 			set.tileHeight = setNode.attribute("tileheight").as_uint();
+			set.columns = setNode.attribute("columns").as_uint(); // Since 0.15
 			set.image.source = setNode.child("image").attribute("source").as_string();
 			set.image.width = setNode.child("image").attribute("width").as_uint();
 			set.image.height = setNode.child("image").attribute("height").as_uint();
@@ -136,13 +149,13 @@ namespace tpp
 			if (setNode.attribute("tilecount"))
 			{
 				set.tilesCount = setNode.attribute("tilecount").as_uint();
-				set.lastTileId = set.firstTileId + set.tilesCount - 1;
+				set.lastTileId = set.firstTileId + set.tilesCount - 1U;
 			}
 			// If no tilecount was specified, calcule it through the precalculed image sizes
 			else
 			{
 				set.tilesCount = (set.image.width / set.tileWidth) * (set.image.height / set.tileHeight);
-				set.lastTileId = set.firstTileId + set.tilesCount - 1;
+				set.lastTileId = set.firstTileId + set.tilesCount - 1U;
 			}
 
 			// Check for internal tiles properties/animations
@@ -170,11 +183,9 @@ namespace tpp
 						frame.duration = animationFrame.attribute("duration").as_uint();
 						frame.tileGid = animationFrame.attribute("tileid").as_uint();
 
-						// Store the frame
 						animation.frames.emplace_back(std::move(frame));
 					}
 
-					// Store the animation
 					set.animations.emplace(id, std::move(animation));
 				}
 			}
@@ -193,19 +204,18 @@ namespace tpp
 		// We dont know which layer comes first, so we traverse the XML file
 		for (const auto& node : mapNode.children())
 		{
-			// Check whichever layer this is and build it
 			if (strcmp(node.name(), "layer") == 0)
-				layers.emplace_back(parseTileLayers(node));
+				layers.emplace_back(parseTileLayer(node));
 			else if (strcmp(node.name(), "imagelayer") == 0)
-				layers.emplace_back(parseImageLayers(node));
+				layers.emplace_back(parseImageLayer(node));
 			else if (strcmp(node.name(), "objectgroup") == 0)
-				layers.emplace_back(parseObjectLayers(node));
+				layers.emplace_back(parseObjectLayer(node));
 		}
 
 		return layers;
 	}
 
-	tpp::ImageLayer* FileParser::parseImageLayers(const pugi::xml_node& imageLayerNode)
+	tpp::ImageLayer* FileParser::parseImageLayer(const pugi::xml_node& imageLayerNode)
 	{
 		tpp::ImageLayer* imageLayer = new tpp::ImageLayer;
 
@@ -239,7 +249,7 @@ namespace tpp
 		return imageLayer;
 	}
 
-	tpp::TileLayer* FileParser::parseTileLayers(const pugi::xml_node& tileLayerNode)
+	tpp::TileLayer* FileParser::parseTileLayer(const pugi::xml_node& tileLayerNode)
 	{
 		tpp::TileLayer* tileLayer = new tpp::TileLayer;
 
@@ -252,6 +262,8 @@ namespace tpp
 		tileLayer->opacity = tileLayerNode.attribute("opacity").as_double(1.0); // Defaults to 1.0
 		tileLayer->isOpaque = !tileLayerNode.attribute("opacity").empty(); // Defaults to false
 		tileLayer->isVisible = strcmp(tileLayerNode.attribute("visible").as_string("1"), "1") == 0; // Defaults to true
+		tileLayer->tileWidth = tileLayerNode.parent().attribute("tilewidth").as_uint();
+		tileLayer->tileHeight = tileLayerNode.parent().attribute("tileheight").as_uint();
 
 		// Offset X. Override deprecated value (Since 0.14)
 		if (tileLayerNode.attribute("offsetx"))
@@ -281,10 +293,13 @@ namespace tpp
 				tileLayer->data.compression = tpp::Compression::ZLIB;
 
 			// Data. Trim left ('\n', '', '' and '') and right ('\n', '' and '')
-			tileLayer->data.value = std::string(data.begin() + 4, data.end() - 3);
+			std::string::const_iterator ltrim = data.begin() + data.find_first_not_of(" \t\n");
+			std::string::const_iterator rtrim = data.begin() + data.find_last_not_of(" \t\n") + 1U;
+
+			tileLayer->data.value = std::string(ltrim, rtrim);
 		}
 		else
-			throw std::runtime_error("Unsupported encoding. Decoded layers are deprecated.");
+			throw std::runtime_error("Unsupported encoding. Decoded tile layers are deprecated.");
 
 		// Properties (if any)
 		if (tileLayerNode.child("properties"))
@@ -299,7 +314,7 @@ namespace tpp
 		return tileLayer;
 	}
 
-	tpp::ObjectLayer* FileParser::parseObjectLayers(const pugi::xml_node& objectLayerNode)
+	tpp::ObjectLayer* FileParser::parseObjectLayer(const pugi::xml_node& objectLayerNode)
 	{
 		tpp::ObjectLayer* objectLayer = new tpp::ObjectLayer;
 
@@ -328,11 +343,86 @@ namespace tpp
 		}
 
 		// Objects
-		/*for (const auto& objectNode : objectLayerNode.children("object"))
-			buildObject(objectNode);*/
+		for (const auto& objectNode : objectLayerNode.children("object"))
+		{
+			tpp::Object object = parseObject(objectNode, objectLayer);
+
+			objectLayer->objects.emplace(object.id, std::move(object));
+		}
 
 		onObjectLayerParsed.fire(objectLayer);
 
 		return objectLayer;
+	}
+
+	tpp::Object FileParser::parseObject(const pugi::xml_node& objectNode, tpp::ObjectLayer* objectLayer)
+	{
+		tpp::Object object;
+
+		object.owner = objectLayer;
+		object.x = objectNode.attribute("x").as_int();
+		object.y = objectNode.attribute("y").as_int();
+		object.id = objectNode.attribute("id").as_uint(objectNode.hash_value()); // Since 0.11
+		object.name = objectNode.attribute("name").as_string();
+		object.type = objectNode.attribute("type").as_string();
+		object.width = objectNode.attribute("width").as_uint();
+		object.height = objectNode.attribute("height").as_uint();
+		object.tileGid = objectNode.attribute("gid").as_uint();
+		object.rotation = objectNode.attribute("rotation").as_int(); // Since 0.10
+		object.isRotated = !objectNode.attribute("rotation").empty();
+		object.isVisible = strcmp(objectNode.attribute("visible").as_string("1"), "1") == 0; // Since 0.9
+
+		// Points
+		for (const auto& childNode : objectNode.children())
+		{
+			std::string points;
+
+			if (childNode.name() == "ellipse")
+			{
+				object.shape = tpp::Shape::Ellipse;
+				break; // This shape has no points to be parsed
+			}
+			else if (childNode.name() == "polygon")
+			{
+				object.shape = tpp::Shape::Polygon;
+				points = childNode.attribute("points").as_string();
+			}
+			else if (childNode.name() == "polyline")
+			{
+				object.shape = tpp::Shape::Polyline;
+				points = childNode.attribute("points").as_string();
+			}
+			else {
+				continue; // Properties
+			}
+
+			// Check if there are points to be parsed (polygon or polyline)
+			if (!points.empty())
+			{
+				std::string point;
+				std::istringstream sepparator(points);
+
+				while (sepparator >> point)
+				{
+					int px = std::stoi(point.substr(0U, point.find_first_of(",")));
+					int py = std::stoi(point.substr(point.find_first_of(",") + 1U));
+
+					// The parsed points are relative to the object's position (top left)
+					object.points.emplace_back(object.x + px, object.y + py);
+				}
+			}
+		}
+
+		// Properties (if any)
+		if (objectNode.child("properties"))
+		{
+			tpp::PropertySet properties = parseProperties(objectNode.child("properties"));
+
+			object.properties = std::move(properties);
+		}
+
+		onObjectParsed.fire(&object);
+
+		return object;
 	}
 }

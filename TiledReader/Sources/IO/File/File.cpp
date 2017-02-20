@@ -2,8 +2,13 @@
 
 namespace tpp
 {
-	File::File(const tpp::Path& path, tpp::FileMetadata& metadata)
+	File::File(const std::string& path, tpp::FileMetadata& metadata)
 		: m_path(path)
+		, m_metadata(std::move(metadata))
+	{}
+
+	File::File(tpp::Path& path, tpp::FileMetadata& metadata)
+		: m_path(std::move(path))
 		, m_metadata(std::move(metadata))
 	{}
 

@@ -16,6 +16,7 @@ namespace tpp
 		bool isEmpty();
 		bool has(const std::string& key);
 		void add(const std::string& key, const std::string& value);
+		void emplace(const std::string& name, const std::string& value, const std::string& type);
 
 		std::map<std::string, tpp::Property>::iterator begin();
 		std::map<std::string, tpp::Property>::iterator end();

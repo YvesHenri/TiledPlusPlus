@@ -4,6 +4,7 @@
 
 #include "IO\File\File.h"
 #include "IO\File\Builder\FileParser.h"
+#include "IO\File\Builder\FileReaderSettings.h"
 #include "IO\Compression\Decoder.h"
 
 namespace tpp
@@ -12,9 +13,9 @@ namespace tpp
 	class TILEDPP_API FileReader final
 	{
 	public:
-		FileReader();
-		~FileReader() = default;
+		FileReader(const tpp::FileReaderSettings& settings = tpp::FileReaderSettings());
 
+		tpp::File read(const tpp::Path& path);
 		tpp::File read(const std::string& path);
 
 	private:
@@ -37,5 +38,6 @@ namespace tpp
 
 	private:
 		tpp::FileParser m_parser;
+		tpp::FileReaderSettings m_settings;
 	};
 }

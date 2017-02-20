@@ -291,6 +291,7 @@
     <ClInclude Include="Includes\Dependencies\Pugi\pugiconfig.hpp" />
     <ClInclude Include="Includes\Dependencies\Pugi\pugixml.hpp" />
     <ClInclude Include="Includes\IO\Compression\Decoder.h" />
+    <ClInclude Include="Includes\IO\File\Builder\FileReaderSettings.h" />
     <ClInclude Include="Includes\IO\File\Enum\Compression.h" />
     <ClInclude Include="Includes\IO\File\Enum\Encoding.h" />
     <ClInclude Include="Includes\IO\File\Enum\Flip.h" />
@@ -305,6 +306,9 @@
     <ClInclude Include="Includes\Event\Delegate\Functor\MemberConstFunctionFunctor.h" />
     <ClInclude Include="Includes\Event\Delegate\Functor\MemberFunctionFunctor.h" />
     <ClInclude Include="Includes\Event\Event.h" />
+    <ClInclude Include="Includes\IO\File\Enum\StaggerAxis.h" />
+    <ClInclude Include="Includes\IO\File\Enum\StaggerIndex.h" />
+    <ClInclude Include="Includes\IO\File\Enum\Type.h" />
     <ClInclude Include="Includes\IO\File\File.h" />
     <ClInclude Include="Includes\IO\File\FileMetadata.h" />
     <ClInclude Include="Includes\IO\File\Builder\FileParser.h" />

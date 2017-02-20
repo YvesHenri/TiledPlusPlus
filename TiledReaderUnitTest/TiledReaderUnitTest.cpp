@@ -4,6 +4,7 @@
 
 #include "IO\File\Builder\FileReader.h"
 
+#pragma region Print
 void print(tpp::File* file)
 {
 	printf("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ \n");
@@ -49,13 +50,29 @@ void print(tpp::File* file)
 			printf("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ \n");
 
 			printf("Layer \'%s\' is located at (%d, %d) \n", layer->name.c_str(), layer->x, layer->y);
+
+			if (layer->material == tpp::Material::Object)
+			{
+				tpp::ObjectLayer* objectLayer = static_cast<tpp::ObjectLayer*>(layer.get());
+
+				for (const auto& object : objectLayer->objects)
+				{
+					printf("Object of ID %d belongs to group \'%s\' \n", object.second.id, object.second.owner->name.c_str());
+				}
+			}
 		}
 	}
 }
+#pragma endregion
 
-void onHeaderBuilt(const tpp::Header& header)
+void onHeaderRead(const tpp::Header& header)
 {
-	printf("MEEEEEEEEEEEEEEP \n");
+	printf("[onHeaderRead] Tile size: %dx%d \n", header.tileWidth, header.tileHeight);
+}
+
+void onTileRead(const tpp::Tile& tile)
+{
+	//printf("onTileRead: %d \n", tile.gid);
 }
 
 void test()
@@ -64,15 +81,22 @@ void test()
 
 	try
 	{
-		reader.onHeaderBuilt.attach(evt::Delegate<void(const tpp::Header&)>(&onHeaderBuilt));
+		reader.onHeaderRead.attach(evt::Delegate<void(const tpp::Header&)>(&onHeaderRead));
+		reader.onTileRead.attach(evt::Delegate<void(const tpp::Tile&)>(&onTileRead));
+		reader.onTileRead.detach(evt::Delegate<void(const tpp::Tile&)>(&onTileRead));
 
-		tpp::File meep = reader.read("Resources//Maps//attr.tmx");
+		tpp::File meep = reader.read("Resources//Maps//attr018.tmx");
 		tpp::File* file; // = &reader.read("Resources//Maps//attr.tmx"); // Error
+		//tpp::File temp = std::move(meep);
 
 		file = &meep; // Ok
 
 		print(&meep);
 		//print(file);
+	}
+	catch (const std::runtime_error& e)
+	{
+		printf("Error: %s!\n", e.what());
 	}
 	catch (...)
 	{

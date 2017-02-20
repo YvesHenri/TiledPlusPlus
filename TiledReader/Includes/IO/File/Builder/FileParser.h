@@ -1,6 +1,8 @@
 #ifndef FILE_PARSER_PUGIPARSER_H
 #define FILE_PARSER_PUGIPARSER_H
 
+#include <sstream>
+
 #include "Event\Event.h"
 #include "IO\File\FileMetadata.h"
 #include "Dependencies\Pugi\pugixml.hpp"
@@ -15,12 +17,13 @@ namespace tpp
 
 	private:
 		tpp::Header parseHeader(const pugi::xml_node& mapNode);
-		tpp::TileSets parseTextures(const pugi::xml_node& mapNode);
-		tpp::PropertySet parseProperties(const pugi::xml_node& propertiesNode);
+		tpp::TileSets parseTileSets(const pugi::xml_node& mapNode);
 		tpp::Layers parseLayers(const pugi::xml_node& mapNode);
-		tpp::TileLayer* parseTileLayers(const pugi::xml_node& tileLayerNode);
-		tpp::ImageLayer* parseImageLayers(const pugi::xml_node& imageLayerNode);
-		tpp::ObjectLayer* parseObjectLayers(const pugi::xml_node& objectLayerNode);
+		tpp::Object parseObject(const pugi::xml_node& objectNode, tpp::ObjectLayer* objectLayer);
+		tpp::PropertySet parseProperties(const pugi::xml_node& propertiesNode);
+		tpp::TileLayer* parseTileLayer(const pugi::xml_node& tileLayerNode);
+		tpp::ImageLayer* parseImageLayer(const pugi::xml_node& imageLayerNode);
+		tpp::ObjectLayer* parseObjectLayer(const pugi::xml_node& objectLayerNode);
 
 	public:
 		evt::Event<tpp::Tile*> onTileParsed;

@@ -22,6 +22,11 @@ namespace tpp
 		m_properties.emplace(key, value); // Calls in-place tpp::Property(value)
 	}
 
+	void PropertySet::emplace(const std::string& name, const std::string& value, const std::string& type)
+	{
+		m_properties.emplace(name, value);
+	}
+
 	std::map<std::string, tpp::Property>::iterator PropertySet::begin()
 	{
 		return m_properties.begin();
@@ -49,6 +54,6 @@ namespace tpp
 
 	tpp::Property& PropertySet::operator[](const std::string& key)
 	{
-		return m_properties[key];
+		return m_properties[key.c_str()];
 	}
 }

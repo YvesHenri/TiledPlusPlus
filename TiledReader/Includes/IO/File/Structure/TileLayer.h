@@ -17,6 +17,8 @@ namespace tpp
 		unsigned int area;
 		unsigned int width;
 		unsigned int height;
+		unsigned int tileWidth;
+		unsigned int tileHeight;
 
 		tpp::Data data;
 		std::vector<tpp::Tile> tiles;

@@ -3,11 +3,11 @@
 
 namespace tpp
 {
-	/// The layer's <data/> compression
+	// The layer's <data/> compression
 	enum class Compression
 	{
 		None,
-		GZIP,
+		GZIP, // Deprecated at 0.15
 		ZLIB
 	};
 }

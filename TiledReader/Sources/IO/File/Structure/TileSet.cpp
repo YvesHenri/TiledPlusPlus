@@ -9,5 +9,6 @@ namespace tpp
 		, tilesCount(0U)
 		, tileWidth(0U)
 		, tileHeight(0U)
+		, columns(0U)
 	{}
 }

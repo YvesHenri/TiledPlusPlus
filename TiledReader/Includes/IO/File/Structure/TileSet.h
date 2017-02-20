@@ -7,7 +7,7 @@
 
 namespace tpp
 {
-	// Represents the <tileset> tag
+	// Represents the </tileset> tag
 	struct TILEDPP_API TileSet final
 	{
 		TileSet();
@@ -17,6 +17,7 @@ namespace tpp
 		unsigned int tilesCount;
 		unsigned int tileWidth;
 		unsigned int tileHeight;
+		unsigned int columns;
 
 		tpp::Image image;
 		std::string name;

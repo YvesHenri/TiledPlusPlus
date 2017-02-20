@@ -3,12 +3,12 @@
 
 namespace tpp
 {
-	/// The <map/> orientation
+	// The </map> orientation
 	enum class Orientation
 	{
 		Orthogonal,
 		Isometric,
-		Hexagonal,
+		Hexagonal, // Since 0.11
 		Staggered
 	};
 }
