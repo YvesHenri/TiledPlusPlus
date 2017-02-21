@@ -1,5 +1,5 @@
-#ifndef TPP_STRUCTURE_COLOR_H
-#define TPP_STRUCTURE_COLOR_H
+#ifndef TPP_IO_FILE_STRUCTURE_COLOR_H
+#define TPP_IO_FILE_STRUCTURE_COLOR_H
 
 #include <string>
 

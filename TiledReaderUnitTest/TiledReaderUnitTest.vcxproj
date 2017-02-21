@@ -158,6 +158,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="TiledReaderUnitTest.cpp" />
+    <ClCompile Include="TimeProfiler.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="TiledReaderUnitTest.h" />
+    <ClInclude Include="TimeProfiler.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

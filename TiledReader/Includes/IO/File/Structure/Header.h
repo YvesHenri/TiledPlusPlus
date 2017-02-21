@@ -1,6 +1,5 @@
-//#ifndef TPP_STRUCTURE_HEADER_H
-//#define TPP_STRUCTURE_HEADER_H
-#pragma once
+#ifndef TPP_IO_FILE_STRUCTURE_HEADER_H
+#define TPP_IO_FILE_STRUCTURE_HEADER_H
 
 #include "IO\File\Structure\Color.h"
 #include "IO\File\Enum\Orientation.h"
@@ -36,4 +35,4 @@ namespace tpp
 	};
 }
 
-//#endif
+#endif

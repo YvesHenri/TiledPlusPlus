@@ -1,5 +1,5 @@
-#ifndef TPP_STRUCTURE_PROPERTY_H
-#define TPP_STRUCTURE_PROPERTY_H
+#ifndef TPP_IO_FILE_STRUCTURE_PROPERTY_H
+#define TPP_IO_FILE_STRUCTURE_PROPERTY_H
 
 #include <string>
 #include <limits>

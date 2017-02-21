@@ -5,6 +5,7 @@ namespace tpp
 	FileReader::FileReader(const tpp::FileReaderSettings& settings)
 	{
 		m_settings = settings;
+
 		m_parser.onHeaderParsed.attach(evt::Delegate<void(tpp::Header*)>(&FileReader::onHeaderParsed, this));
 		m_parser.onObjectParsed.attach(evt::Delegate<void(tpp::Object*)>(&FileReader::onObjectParsed, this));
 		m_parser.onTileParsed.attach(evt::Delegate<void(tpp::Tile*)>(&FileReader::onTileParsed, this));
@@ -34,8 +35,13 @@ namespace tpp
 
 	void FileReader::onTileParsed(tpp::Tile* tile)
 	{
-		// Ignore textureless tiles (if set in the settings)
-		if ((m_settings.skipTexturelessTiles && tile->gid > 0U) || !m_settings.skipTexturelessTiles)
+		bool read = true;
+
+		// Building blank tiles (no texture/gid) is pointless and costly. Check whether to ignore them
+		if (m_settings.skipBlankTilesProcessingAndStorings && tile->gid == 0U)
+			read = false;
+
+		if (read)
 		{
 			// Check flip flags
 			tile->isFlippedHorizontally = (tile->gid & tpp::Tile::FLIPPED_HORIZONTALLY) != 0;
@@ -60,20 +66,35 @@ namespace tpp
 			//	tile.set = &m_sets[m_setLookup[tile.gid]];
 			//	tile.id = tile.gid - tile.set->firstTileId;
 			//}
+			//for (int i = tileset_count - 1; i >= 0; --i) {
+			//	Tileset *tileset = tilesets[i];
+			//
+			//	if (tileset->first_gid() <= global_tile_id) {
+			//		tiles[y][x] = tileset->tileAt(global_tile_id - tileset->first_gid());
+			//		break;
+			//	}
+			//}
 
-			tile->owner->tiles.emplace_back(*tile);
+			// Storing tiles can be very costly and might not be useful (when tile events are used and a "copy" of tpp::File is not needed)
+			if (m_settings.storeTilesAfterRead)
+				tile->owner->tiles.emplace_back(*tile);
+
+			onTileRead.fire(*tile);
 		}
-
-		onTileRead.fire(*tile);
 	}
 
 	void FileReader::onObjectParsed(tpp::Object* object)
 	{
-		bool valid = false;
+		bool calculatePoints = true;
 
-		// Dont calculate points if the object is not visible (if set in the settings)
-		if ((m_settings.skipInvisibleObjects && object->isVisible) || !m_settings.skipInvisibleObjects)
+		// Calculating the points is a bit costly and might not be useful
+		if (m_settings.skipHiddenObjectsPointsCalculations && !object->isVisible)
+			calculatePoints = false;
+
+		if (calculatePoints)
 		{
+			bool valid = false;
+
 			// Create/parse the points accordingly
 			if (object->shape == tpp::Shape::Ellipse)
 			{
@@ -145,13 +166,9 @@ namespace tpp
 					}
 				}
 			}
-		}
 
-		// If object contains valid points, apply layer offsets, rotation and store them
-		if (valid)
-		{
-			// Before storing, apply rotation (if any)
-			if (object->isRotated)
+			// If object contains valid points, apply layer offsets and rotation
+			if (valid && object->isRotated)
 			{
 				float rad = object->rotation * 0.0174532925f; // Degrees to radians (std::cos & std::sin)
 				float cos = std::cos(rad);
@@ -173,9 +190,9 @@ namespace tpp
 					point.y = static_cast<int>(x * sin + y * cos + (ay * (1 - cos) - ax * sin));
 				}
 			}
-		}
 
-		onObjectRead.fire(*object);
+			onObjectRead.fire(*object);
+		}
 	}
 
 	void FileReader::onTileSetParsed(tpp::TileSet* set)
@@ -185,10 +202,14 @@ namespace tpp
 
 	void FileReader::onTileLayerParsed(tpp::TileLayer* tileLayer)
 	{
-		// Create a tile outside the loop to speed up things. It will be reused as many times as needed
-		tpp::Tile tile;
+		tpp::Tile tile; // Allocating a single time (outside the loop) makes it much faster
 		std::string decoded = tpp::Decoder::decode(tileLayer->data.value, tileLayer->data.compression, tileLayer->data.encoding);
 
+		// If tiles should be stored, reserve space for faster insertion and also to prevent reallocations
+		if (m_settings.storeTilesAfterRead)
+			tileLayer->tiles.reserve(tileLayer->area);
+
+		// Dispatch the tiles after decoding/decompressing the layer
 		for (unsigned int index = 0; index < tileLayer->area; index++)
 		{
 			// Reserves 4 bytes for each tile, since encoded tile gids are composed by 4 bytes
@@ -203,7 +224,7 @@ namespace tpp
 			tile.index = index;
 			tile.owner = tileLayer;
 
-			// Reuse the function. Let it set positions, owner, etc
+			// Reuse the function. Let it set positions, etc
 			onTileParsed(&tile);
 		}
 

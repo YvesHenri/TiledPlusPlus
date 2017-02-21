@@ -1,11 +1,60 @@
-#include <stdio.h>
-#include <memory>
-#include <vector>
+#include "TiledReaderUnitTest.h"
 
-#include "IO\File\Builder\FileReader.h"
+int main()
+{
+	read("Resources//Maps//attr018.tmx", false, false, false);
+	return getchar();
+}
 
-#pragma region Print
-void print(tpp::File* file)
+void read(const std::string& path, bool print, bool objects, bool tiles)
+{
+	tpp::File file;
+
+	{
+		tpp::FileReaderSettings settings;
+
+		settings.storeTilesAfterRead = true; // Setting to false will potentially speed things up
+		settings.skipBlankTilesProcessingAndStorings = true; // Setting to true will slightly speed things up
+		settings.skipHiddenObjectsPointsCalculations = false; // Setting to true will slightly speed things up
+
+		tpp::FileReader reader(settings);
+
+		if (objects)
+			reader.onObjectRead.attach(evt::Delegate<void(const tpp::Object&)>(&onObjectRead));
+
+		if (tiles)
+			reader.onTileRead.attach(evt::Delegate<void(const tpp::Tile&)>(&onTileRead));
+
+		try
+		{
+			TIME_PROFILER("Reading file");
+			file = std::move(reader.read(path));
+		}
+		catch (const std::runtime_error& e)
+		{
+			printf("Runtime error: %s!\n", e.what());
+		}
+		catch (...)
+		{
+			printf("Unknown error!\n");
+		}
+	}
+
+	if (print)
+		printFileData(&file);
+}
+
+void onTileRead(const tpp::Tile& tile)
+{
+	printf("[onTileRead] Tile of GID %d has size %dx%d and is at (%d, %d) \n", tile.gid, tile.width, tile.height, tile.x, tile.y);
+}
+
+void onObjectRead(const tpp::Object& object)
+{
+	printf("[onObjectRead] Object \'%s\' (%d) has %d points and is at (%d, %d) \n", object.name.c_str(), object.id, object.points.size(), object.x, object.y);
+}
+
+void printFileData(tpp::File* file)
 {
 	printf("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ \n");
 	printf("@@@@@@@@@@@@@@@@@    HEADER     @@@@@@@@@@@@@@ \n");
@@ -62,121 +111,4 @@ void print(tpp::File* file)
 			}
 		}
 	}
-}
-#pragma endregion
-
-void onHeaderRead(const tpp::Header& header)
-{
-	printf("[onHeaderRead] Tile size: %dx%d \n", header.tileWidth, header.tileHeight);
-}
-
-void onTileRead(const tpp::Tile& tile)
-{
-	//printf("onTileRead: %d \n", tile.gid);
-}
-
-void test()
-{
-	tpp::FileReader reader;
-
-	try
-	{
-		reader.onHeaderRead.attach(evt::Delegate<void(const tpp::Header&)>(&onHeaderRead));
-		reader.onTileRead.attach(evt::Delegate<void(const tpp::Tile&)>(&onTileRead));
-		reader.onTileRead.detach(evt::Delegate<void(const tpp::Tile&)>(&onTileRead));
-
-		tpp::File meep = reader.read("Resources//Maps//attr018.tmx");
-		tpp::File* file; // = &reader.read("Resources//Maps//attr.tmx"); // Error
-		//tpp::File temp = std::move(meep);
-
-		file = &meep; // Ok
-
-		print(&meep);
-		//print(file);
-	}
-	catch (const std::runtime_error& e)
-	{
-		printf("Error: %s!\n", e.what());
-	}
-	catch (...)
-	{
-		printf("Error!\n");
-	}
-}
-
-void paths()
-{
-	tpp::Path invalidPath = "D://Documents//Meepz//";
-
-	printf("File Name: %s \n", invalidPath.getFileName().c_str());
-	printf("File Full name: %s \n", invalidPath.getFileFullName().c_str());
-	printf("File Path: %s \n", invalidPath.getFilePath().c_str());
-	printf("File Full path: %s \n", invalidPath.getFileFullPath().c_str());
-	printf("File Extension: %s \n", invalidPath.getFileExtension().c_str());
-	printf("-------------------------------------------- \n");
-
-	tpp::Path validPath("D://Documents//Diablo III//");
-
-	printf("File Name: %s \n", validPath.getFileName().c_str());
-	printf("File Full name: %s \n", validPath.getFileFullName().c_str());
-	printf("File Path: %s \n", validPath.getFilePath().c_str());
-	printf("File Full path: %s \n", validPath.getFileFullPath().c_str());
-	printf("File Extension: %s \n", validPath.getFileExtension().c_str());
-	printf("-------------------------------------------- \n");
-
-	tpp::Path invalidFile("D://Documents//Diablo III//whatever.meep");
-
-	printf("File Name: %s \n", invalidFile.getFileName().c_str());
-	printf("File Full name: %s \n", invalidFile.getFileFullName().c_str());
-	printf("File Path: %s \n", invalidFile.getFilePath().c_str());
-	printf("File Full invalidFile: %s \n", invalidFile.getFileFullPath().c_str());
-	printf("File Extension: %s \n", invalidFile.getFileExtension().c_str());
-	printf("-------------------------------------------- \n");
-
-	tpp::Path invalidFileExtensionless("D://Documents//Diablo III//whatever");
-
-	printf("File Name: %s \n", invalidFileExtensionless.getFileName().c_str());
-	printf("File Full name: %s \n", invalidFileExtensionless.getFileFullName().c_str());
-	printf("File Path: %s \n", invalidFileExtensionless.getFilePath().c_str());
-	printf("File Full path: %s \n", invalidFileExtensionless.getFileFullPath().c_str());
-	printf("File Extension: %s \n", invalidFileExtensionless.getFileExtension().c_str());
-	printf("-------------------------------------------- \n");
-
-	tpp::Path validFile("D://Documents//Diablo III//D3Prefs.txt");
-
-	printf("File Name: %s \n", validFile.getFileName().c_str());
-	printf("File Full name: %s \n", validFile.getFileFullName().c_str());
-	printf("File Path: %s \n", validFile.getFilePath().c_str());
-	printf("File Full validFile: %s \n", validFile.getFileFullPath().c_str());
-	printf("File Extension: %s \n", validFile.getFileExtension().c_str());
-	printf("-------------------------------------------- \n");
-
-	tpp::Path validFileExtensionless("D://Documents//Diablo III//D3Prefs");
-
-	printf("File Name: %s \n", validFileExtensionless.getFileName().c_str());
-	printf("File Full name: %s \n", validFileExtensionless.getFileFullName().c_str());
-	printf("File Path: %s \n", validFileExtensionless.getFilePath().c_str());
-	printf("File Full validFile: %s \n", validFileExtensionless.getFileFullPath().c_str());
-	printf("File Extension: %s \n", validFileExtensionless.getFileExtension().c_str());
-	printf("-------------------------------------------- \n");
-}
-
-int main()
-{
-	{
-		//paths();
-		test();
-	}
-
-	//tpp::File file;
-	//
-	//{
-	//	tpp::TiledReader reader;
-	//	tpp::File temp = reader.read("Resources//Maps//attr.tmx");
-	//	
-	//	file = std::move(temp);
-	//	file = std::move(reader.read("Resources//Maps//attr.tmx"));
-	//}
-
-	return getchar();
 }

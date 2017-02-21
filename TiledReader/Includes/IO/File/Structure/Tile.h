@@ -1,5 +1,5 @@
-#ifndef TPP_STRUCTURE_TILE_H
-#define TPP_STRUCTURE_TILE_H
+#ifndef TPP_IO_FILE_STRUCTURE_TILE_H
+#define TPP_IO_FILE_STRUCTURE_TILE_H
 
 #include "IO\File\Structure\PropertySet.h"
 

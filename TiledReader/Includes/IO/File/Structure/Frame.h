@@ -1,5 +1,5 @@
-#ifndef TPP_STRUCTURE_FRAME_H
-#define TPP_STRUCTURE_FRAME_H
+#ifndef TPP_IO_FILE_STRUCTURE_FRAME_H
+#define TPP_IO_FILE_STRUCTURE_FRAME_H
 
 #include "Macros\API.h"
 

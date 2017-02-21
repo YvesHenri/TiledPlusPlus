@@ -22,6 +22,7 @@ namespace tpp
 		static std::string ToFileFullName(const std::string& path, bool validate = true);
 		static std::string ToFileExtension(const std::string& path, bool validate = true);
 
+		Path() = default;
 		Path(const std::string& path);
 
 		const std::string& getFileName() const;

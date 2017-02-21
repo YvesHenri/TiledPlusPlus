@@ -19,7 +19,7 @@ namespace tpp
 		tpp::Header parseHeader(const pugi::xml_node& mapNode);
 		tpp::TileSets parseTileSets(const pugi::xml_node& mapNode);
 		tpp::Layers parseLayers(const pugi::xml_node& mapNode);
-		tpp::Object parseObject(const pugi::xml_node& objectNode, tpp::ObjectLayer* objectLayer);
+		tpp::Object parseObject(const pugi::xml_node& objectNode, const tpp::ObjectLayer* objectLayer);
 		tpp::PropertySet parseProperties(const pugi::xml_node& propertiesNode);
 		tpp::TileLayer* parseTileLayer(const pugi::xml_node& tileLayerNode);
 		tpp::ImageLayer* parseImageLayer(const pugi::xml_node& imageLayerNode);
@@ -33,6 +33,9 @@ namespace tpp
 		evt::Event<tpp::TileLayer*> onTileLayerParsed;
 		evt::Event<tpp::ImageLayer*> onImageLayerParsed;
 		evt::Event<tpp::ObjectLayer*> onObjectLayerParsed;
+
+	private:
+		tpp::FileMetadata m_metadata;
 	};
 }
 

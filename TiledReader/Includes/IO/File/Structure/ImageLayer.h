@@ -1,5 +1,5 @@
-#ifndef TPP_STRUCTURE_IMAGELAYER_H
-#define TPP_STRUCTURE_IMAGELAYER_H
+#ifndef TPP_IO_FILE_STRUCTURE_IMAGELAYER_H
+#define TPP_IO_FILE_STRUCTURE_IMAGELAYER_H
 
 #include "IO\File\Structure\Image.h"
 #include "IO\File\Structure\Layer.h"

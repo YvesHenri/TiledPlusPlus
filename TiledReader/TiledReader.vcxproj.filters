@@ -150,6 +150,9 @@
     <ClInclude Include="Includes\IO\File\Enum\Type.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Includes\IO\File\Structure\CroppedImage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Sources\Dependencies\Pugi\pugixml.cpp">

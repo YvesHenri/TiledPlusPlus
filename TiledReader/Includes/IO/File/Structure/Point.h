@@ -1,5 +1,5 @@
-#ifndef TPP_STRUCTURE_POINT_H
-#define TPP_STRUCTURE_POINT_H
+#ifndef TPP_IO_FILE_STRUCTURE_POINT_H
+#define TPP_IO_FILE_STRUCTURE_POINT_H
 
 #include "Macros\API.h"
 

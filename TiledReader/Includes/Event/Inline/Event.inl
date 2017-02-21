@@ -10,7 +10,7 @@ namespace evt
 
 		// Avoid replication
 		if (iter == m_delegates.end())
-			m_delegates.emplace_back(delegate);
+			m_delegates.emplace_back(std::move(delegate));
 	}
 
 	template <typename... TArgs>

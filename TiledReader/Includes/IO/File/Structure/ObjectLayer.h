@@ -1,5 +1,5 @@
-#ifndef TPP_STRUCTURE_OBJECTGROUP_H
-#define TPP_STRUCTURE_OBJECTGROUP_H
+#ifndef TPP_IO_FILE_STRUCTURE_OBJECTGROUP_H
+#define TPP_IO_FILE_STRUCTURE_OBJECTGROUP_H
 
 #include "IO\File\Structure\Color.h"
 #include "IO\File\Structure\Object.h"

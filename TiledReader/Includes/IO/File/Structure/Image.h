@@ -1,12 +1,12 @@
-#ifndef TPP_STRUCTURE_IMAGE_H
-#define TPP_STRUCTURE_IMAGE_H
+#ifndef TPP_IO_FILE_STRUCTURE_IMAGE_H
+#define TPP_IO_FILE_STRUCTURE_IMAGE_H
 
-#include "Color.h"
+#include "IO/File/Structure/Color.h"
 
 namespace tpp
 {
-	// Represents the <image> tag
-	struct TILEDPP_API Image final
+	// Represents the </image> tag
+	struct TILEDPP_API Image
 	{
 		Image();
 

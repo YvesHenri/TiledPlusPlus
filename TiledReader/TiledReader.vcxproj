@@ -313,6 +313,7 @@
     <ClInclude Include="Includes\IO\File\FileMetadata.h" />
     <ClInclude Include="Includes\IO\File\Builder\FileParser.h" />
     <ClInclude Include="Includes\IO\File\Builder\FileReader.h" />
+    <ClInclude Include="Includes\IO\File\Structure\CroppedImage.h" />
     <ClInclude Include="Includes\IO\Path\Path.h" />
     <ClInclude Include="Includes\IO\File\Structure\Animation.h" />
     <ClInclude Include="Includes\IO\File\Structure\Color.h" />

@@ -20,10 +20,15 @@ namespace tpp
 			{
 				tpp::FileMetadata metadata;
 
+				// Save the data internally because some functions depend on some metadata's values
+				m_metadata.header = std::move(parseHeader(mapNode));
+				m_metadata.sets = std::move(parseTileSets(mapNode));
+				m_metadata.layers = std::move(parseLayers(mapNode));
+				
 				// Do not copy data. Instead, we'll move for faster processing
-				metadata.header = std::move(parseHeader(mapNode));
-				metadata.sets = std::move(parseTileSets(mapNode));
-				metadata.layers = std::move(parseLayers(mapNode));
+				metadata.header = std::move(m_metadata.header);
+				metadata.sets = std::move(m_metadata.sets);
+				metadata.layers = std::move(m_metadata.layers);
 
 				return metadata;
 			}
@@ -34,7 +39,6 @@ namespace tpp
 			throw std::runtime_error(result.description());
 	}
 
-	// Optimized - TODO: Check layer names validation (counting)
 	tpp::Header FileParser::parseHeader(const pugi::xml_node& mapNode)
 	{
 		tpp::Header header;
@@ -46,6 +50,7 @@ namespace tpp
 		header.hexSideLength = mapNode.attribute("hexsidelength").as_uint(); // Since 0.11
 		header.backgroundColor = mapNode.attribute("backgroundcolor").as_string();
 
+		// Enumerations
 		const std::string orientation = mapNode.attribute("orientation").as_string("orthogonal");
 		const std::string renderOrder = mapNode.attribute("renderorder").as_string("right-down");
 		const std::string staggerAxis = mapNode.attribute("staggeraxis").as_string("none");
@@ -131,6 +136,8 @@ namespace tpp
 	{
 		tpp::TileSets sets;
 
+		sets.reserve(m_metadata.header.tileSetsCount);
+
 		for (const auto& setNode : mapNode.children("tileset"))
 		{
 			tpp::TileSet set;
@@ -145,13 +152,17 @@ namespace tpp
 			set.image.height = setNode.child("image").attribute("height").as_uint();
 			set.image.transparency = setNode.child("image").attribute("trans").as_string();
 
+			// Columns count. If the value could not be previously retrieved, calculate it(since 0.15)
+			if (set.columns == 0U && set.image)
+				set.columns = set.image.width / set.tileWidth;
+
 			// Tiles count and last tile id (since 0.13)
 			if (setNode.attribute("tilecount"))
 			{
 				set.tilesCount = setNode.attribute("tilecount").as_uint();
 				set.lastTileId = set.firstTileId + set.tilesCount - 1U;
 			}
-			// If no tilecount was specified, calcule it through the precalculed image sizes
+			// If no tilecount was specified, calculate it
 			else
 			{
 				set.tilesCount = (set.image.width / set.tileWidth) * (set.image.height / set.tileHeight);
@@ -187,6 +198,28 @@ namespace tpp
 					}
 
 					set.animations.emplace(id, std::move(animation));
+				}
+			}
+
+			bool createCrops = false;
+
+			// Create the crops
+			if (createCrops && set.image)
+			{
+				// Speed & reallocation prevention!
+				set.crops.reserve(set.tilesCount);
+
+				for (unsigned int i = 0; i < set.tilesCount; i++)
+				{
+					tpp::CroppedImage* crop = new tpp::CroppedImage;
+
+					crop->target = &set.image;
+					crop->x = (i % set.columns) * set.tileWidth;
+					crop->y = (i / set.columns) * set.tileHeight;
+					crop->width = set.tileWidth;
+					crop->height = set.tileHeight;
+
+					set.crops.emplace_back(crop);
 				}
 			}
 
@@ -264,7 +297,7 @@ namespace tpp
 		tileLayer->isVisible = strcmp(tileLayerNode.attribute("visible").as_string("1"), "1") == 0; // Defaults to true
 		tileLayer->tileWidth = tileLayerNode.parent().attribute("tilewidth").as_uint();
 		tileLayer->tileHeight = tileLayerNode.parent().attribute("tileheight").as_uint();
-
+		
 		// Offset X. Override deprecated value (Since 0.14)
 		if (tileLayerNode.attribute("offsetx"))
 			tileLayer->x = tileLayerNode.attribute("offsetx").as_int();
@@ -355,11 +388,10 @@ namespace tpp
 		return objectLayer;
 	}
 
-	tpp::Object FileParser::parseObject(const pugi::xml_node& objectNode, tpp::ObjectLayer* objectLayer)
+	tpp::Object FileParser::parseObject(const pugi::xml_node& objectNode, const tpp::ObjectLayer* objectLayer)
 	{
 		tpp::Object object;
 
-		object.owner = objectLayer;
 		object.x = objectNode.attribute("x").as_int();
 		object.y = objectNode.attribute("y").as_int();
 		object.id = objectNode.attribute("id").as_uint(objectNode.hash_value()); // Since 0.11
@@ -371,6 +403,7 @@ namespace tpp
 		object.rotation = objectNode.attribute("rotation").as_int(); // Since 0.10
 		object.isRotated = !objectNode.attribute("rotation").empty();
 		object.isVisible = strcmp(objectNode.attribute("visible").as_string("1"), "1") == 0; // Since 0.9
+		object.owner = const_cast<tpp::ObjectLayer*>(objectLayer); // Safe casting (param value is non-const)
 
 		// Points
 		for (const auto& childNode : objectNode.children())
