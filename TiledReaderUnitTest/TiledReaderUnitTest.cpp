@@ -14,8 +14,8 @@ void read(const std::string& path, bool print, bool objects, bool tiles)
 		tpp::FileReaderSettings settings;
 
 		settings.storeTilesAfterRead = true; // Setting to false will potentially speed things up
-		settings.skipBlankTilesProcessingAndStorings = true; // Setting to true will slightly speed things up
-		settings.skipHiddenObjectsPointsCalculations = false; // Setting to true will slightly speed things up
+		settings.skipHandlingBlankTiles = true; // Setting to true will slightly speed things up
+		settings.skipHandlingHiddenObjects = false; // Setting to true will slightly speed things up
 
 		tpp::FileReader reader(settings);
 

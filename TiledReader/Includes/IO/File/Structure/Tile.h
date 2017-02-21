@@ -20,9 +20,9 @@ namespace tpp
 		static const unsigned FLIPPED_VERTICALLY = 0x40000000;
 		static const unsigned FLIPPED_DIAGONALLY = 0x20000000;
 
-		unsigned int id;
-		unsigned int gid;
-		unsigned int index; // Conversion from 2D (row, col) to 1D index
+		unsigned int id; // Linear index within a tile set. Always starts at 0 and ends at TileSet::tilesCount.
+		unsigned int gid; // Global ID within the whole collection of tile sets. Starts at 1 (0 means blank tiles).
+		unsigned int index; // Linear index within a tile layer. Always starts at 0 and ends at TileLayer::area.
 		unsigned int width;
 		unsigned int height;
 

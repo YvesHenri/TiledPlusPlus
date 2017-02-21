@@ -2,6 +2,7 @@
 #define TPP_IO_FILE_STRUCTURE_HEADER_H
 
 #include "IO\File\Structure\Color.h"
+#include "IO\File\Structure\PropertySet.h"
 #include "IO\File\Enum\Orientation.h"
 #include "IO\File\Enum\RenderOrder.h"
 #include "IO\File\Enum\StaggerAxis.h"
@@ -28,6 +29,7 @@ namespace tpp
 		unsigned int objectLayersCount;
 
 		tpp::Color backgroundColor;
+		tpp::PropertySet properties;
 		tpp::Orientation orientation;
 		tpp::RenderOrder renderOrder;
 		tpp::StaggerAxis staggerAxis;

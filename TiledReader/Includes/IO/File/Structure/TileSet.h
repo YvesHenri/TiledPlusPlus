@@ -25,9 +25,6 @@ namespace tpp
 		tpp::Image image;
 		std::string name;
 
-		std::vector<tpp::Tile> rtiles;
-		std::vector<std::shared_ptr<tpp::Tile>> tiles;
-
 		std::map<unsigned int, tpp::Animation> animations;
 		std::map<unsigned int, tpp::PropertySet> tileProperties;
 	};

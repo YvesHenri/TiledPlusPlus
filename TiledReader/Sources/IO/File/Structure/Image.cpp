@@ -11,6 +11,6 @@ namespace tpp
 
 	Image::operator bool()
 	{
-		return !source.empty();
+		return !source.empty() && width > 0U && height > 0U;
 	}
 }

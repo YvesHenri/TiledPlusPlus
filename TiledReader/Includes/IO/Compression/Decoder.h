@@ -10,7 +10,6 @@
 
 // ZLIB stuff
 #define CHUNK_SIZE 32768
-#define WINDOW_BITS 15
 #define ENABLE_ZLIB_GZIP 32
 
 namespace tpp
@@ -22,6 +21,7 @@ namespace tpp
 		static std::string decode(const std::string& data, tpp::Compression compression, tpp::Encoding encoding);
 
 	private:
+		static std::string decodeCSV(const std::string& source);
 		static std::string decodeBase64UsingLookup(const std::string& source);
 		static std::string decompressUsingGZIP(const std::string& source);
 		static std::string decompressUsingZLIB(const std::string& source);

@@ -35,13 +35,13 @@ namespace tpp
 
 	void FileReader::onTileParsed(tpp::Tile* tile)
 	{
-		bool read = true;
+		bool handle = true;
 
 		// Building blank tiles (no texture/gid) is pointless and costly. Check whether to ignore them
-		if (m_settings.skipBlankTilesProcessingAndStorings && tile->gid == 0U)
-			read = false;
+		if (m_settings.skipHandlingBlankTiles && tile->gid == 0U)
+			handle = false;
 
-		if (read)
+		if (handle)
 		{
 			// Check flip flags
 			tile->isFlippedHorizontally = (tile->gid & tpp::Tile::FLIPPED_HORIZONTALLY) != 0;
@@ -77,7 +77,7 @@ namespace tpp
 
 			// Storing tiles can be very costly and might not be useful (when tile events are used and a "copy" of tpp::File is not needed)
 			if (m_settings.storeTilesAfterRead)
-				tile->owner->tiles.emplace_back(*tile);
+				tile->owner->tiles.emplace_back(std::move(*tile));
 
 			onTileRead.fire(*tile);
 		}
@@ -85,13 +85,13 @@ namespace tpp
 
 	void FileReader::onObjectParsed(tpp::Object* object)
 	{
-		bool calculatePoints = true;
+		bool handle = true;
 
 		// Calculating the points is a bit costly and might not be useful
-		if (m_settings.skipHiddenObjectsPointsCalculations && !object->isVisible)
-			calculatePoints = false;
+		if (m_settings.skipHandlingHiddenObjects && !object->isVisible)
+			handle = false;
 
-		if (calculatePoints)
+		if (handle)
 		{
 			bool valid = false;
 

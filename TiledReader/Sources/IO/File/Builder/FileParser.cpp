@@ -88,6 +88,14 @@ namespace tpp
 		else if (staggerIndex == "even")
 			header.staggerIndex = tpp::StaggerIndex::Even;
 
+		// Properties
+		if (mapNode.child("properties"))
+		{
+			tpp::PropertySet properties = parseProperties(mapNode.child("properties"));
+
+			header.properties = std::move(properties);
+		}
+
 		// Number of sprite sheets used
 		for (const auto& setNode : mapNode.children("tileset"))
 			header.tileSetsCount++;
@@ -152,8 +160,8 @@ namespace tpp
 			set.image.height = setNode.child("image").attribute("height").as_uint();
 			set.image.transparency = setNode.child("image").attribute("trans").as_string();
 
-			// Columns count. If the value could not be previously retrieved, calculate it(since 0.15)
-			if (set.columns == 0U && set.image)
+			// Columns count. If the value could not be previously retrieved, calculate it (since 0.15)
+			if (set.columns == 0U && set.image.width > 0U && set.tileWidth > 0U)
 				set.columns = set.image.width / set.tileWidth;
 
 			// Tiles count and last tile id (since 0.13)
@@ -198,28 +206,6 @@ namespace tpp
 					}
 
 					set.animations.emplace(id, std::move(animation));
-				}
-			}
-
-			bool createCrops = false;
-
-			// Create the crops
-			if (createCrops && set.image)
-			{
-				// Speed & reallocation prevention!
-				set.crops.reserve(set.tilesCount);
-
-				for (unsigned int i = 0; i < set.tilesCount; i++)
-				{
-					tpp::CroppedImage* crop = new tpp::CroppedImage;
-
-					crop->target = &set.image;
-					crop->x = (i % set.columns) * set.tileWidth;
-					crop->y = (i / set.columns) * set.tileHeight;
-					crop->width = set.tileWidth;
-					crop->height = set.tileHeight;
-
-					set.crops.emplace_back(crop);
 				}
 			}
 

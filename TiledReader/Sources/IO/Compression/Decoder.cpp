@@ -32,11 +32,29 @@ namespace tpp
 				break;
 			}
 			break;
+		case tpp::Encoding::CSV:
+			decoded = decodeCSV(decoded);
+			break;
 		default:
 			throw std::runtime_error("Only Base64 layers can be decoded");
 		}
 
 		return decoded;
+	}
+
+	std::string Decoder::decodeCSV(const std::string& source)
+	{
+		std::string id;
+		std::string out;
+		std::stringstream stream(source);
+
+		while (stream >> id)
+		{
+			// TODO: Build up the encoded string
+			// out += ...
+		}
+
+		return out;
 	}
 
 	std::string Decoder::decodeBase64UsingLookup(const std::string& source)
@@ -91,12 +109,14 @@ namespace tpp
 
 	std::string Decoder::decompressUsingGZIP(const std::string& source)
 	{
-		return decompress(source, 16 + MAX_WBITS);
+		// This will probably automatically recognize the GZIP compression algorithm
+		return decompress(source, Z_DEFAULT_WINDOW_BITS);
 	}
 
 	std::string Decoder::decompressUsingZLIB(const std::string& source)
 	{
-		return decompress(source, 15 + 32);
+		// This will probably automatically recognize the ZLIB compression algorithm
+		return decompress(source, Z_DEFAULT_WINDOW_BITS);
 	}
 
 	std::string Decoder::decompress(const std::string& source, int windowBits)
