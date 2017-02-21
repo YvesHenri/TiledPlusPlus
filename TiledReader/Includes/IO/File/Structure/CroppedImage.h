@@ -6,20 +6,19 @@
 namespace tpp
 {
 	// Represents the small pieces of an image (crops)
-	struct TILEDPP_API CroppedImage // : public tpp::Image
+	struct TILEDPP_API CroppedImage : public tpp::Image
 	{
 		CroppedImage()
-			: x(0) 
-			, y(0)
+			: left(0U)
+			, top(0U)
+			, right(0U)
+			, bottom(0U)
 		{}
 
-		int x;
-		int y;
-
-		unsigned int width;
-		unsigned int height;
-
-		tpp::Image* target;
+		unsigned int left;
+		unsigned int top;
+		unsigned int right;
+		unsigned int bottom;
 	};
 }
 
