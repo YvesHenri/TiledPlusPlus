@@ -13,10 +13,6 @@ namespace tpp
 	{
 		Tile();
 
-		static const unsigned FLIPPED_DIAGONALLY = 0x20000000;
-		static const unsigned FLIPPED_VERTICALLY = 0x40000000;
-		static const unsigned FLIPPED_HORIZONTALLY = 0x80000000;
-
 		int x;
 		int y;
 
@@ -25,11 +21,11 @@ namespace tpp
 		unsigned int index; // Linear index within a tile layer. Range: [0, TileLayer::area).
 		unsigned int width;
 		unsigned int height;
-
-		bool isFlippedHorizontally;
-		bool isFlippedVertically;
-		bool isFlippedDiagonally;
 		
+		bool isFlippedDiagonally; // Bool uses 1 byte (total of 3), while enum classes use 4 (1 byte shorter).
+		bool isFlippedVertically; // Bool uses 1 byte (total of 3), while enum classes use 4 (1 byte shorter).
+		bool isFlippedHorizontally; // Bool uses 1 byte (total of 3), while enum classes use 4 (1 byte shorter).
+
 		tpp::TileSet* set;
 		tpp::TileLayer* owner;
 		tpp::PropertySet properties;

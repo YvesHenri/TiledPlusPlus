@@ -3,6 +3,7 @@
 #include <memory>
 
 #include "IO\File\File.h"
+#include "IO\File\Enum\Flip.h"
 #include "IO\File\Builder\FileParser.h"
 #include "IO\File\Builder\FileReaderSettings.h"
 #include "IO\Compression\Decoder.h"

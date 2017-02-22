@@ -11,6 +11,7 @@ namespace tpp
 
 	Image::operator bool()
 	{
-		return !source.empty() && width > 0U && height > 0U;
+		// Images are used on both tile sets and image layers, however image layers dont provide sizes
+		return !source.empty();
 	}
 }

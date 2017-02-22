@@ -43,15 +43,15 @@ namespace tpp
 
 		if (handle)
 		{
-			// Check flip flags
-			tile->isFlippedHorizontally = (tile->gid & tpp::Tile::FLIPPED_HORIZONTALLY) != 0;
-			tile->isFlippedVertically = (tile->gid & tpp::Tile::FLIPPED_VERTICALLY) != 0;
-			tile->isFlippedDiagonally = (tile->gid & tpp::Tile::FLIPPED_DIAGONALLY) != 0;
+			// Check flip flags (this will also reset the previous values, since it reuses a tpp::Tile object)
+			tile->isFlippedDiagonally = (tpp::Flip::Diagonal & tile->gid) == tpp::Flip::Diagonal;
+			tile->isFlippedVertically = (tpp::Flip::Vertical & tile->gid) == tpp::Flip::Vertical;
+			tile->isFlippedHorizontally = (tpp::Flip::Horizontal & tile->gid) == tpp::Flip::Horizontal;
 
-			// Remove flip flags (if any)
-			tile->gid &= ~tpp::Tile::FLIPPED_HORIZONTALLY;
-			tile->gid &= ~tpp::Tile::FLIPPED_VERTICALLY;
-			tile->gid &= ~tpp::Tile::FLIPPED_DIAGONALLY;
+			// Remove the embed flip flags (if set)
+			tile->gid &= ~tpp::Flip::Diagonal;
+			tile->gid &= ~tpp::Flip::Vertical;
+			tile->gid &= ~tpp::Flip::Horizontal;
 
 			// Tile sets might have different tile sizes, however its only used for positioning the texture
 			tile->width = tile->owner->tileWidth;
@@ -77,7 +77,10 @@ namespace tpp
 
 			// Storing tiles can be very costly and might not be useful (when tile events are used and a "copy" of tpp::File is not needed)
 			if (m_settings.storeTilesAfterRead)
-				tile->owner->tiles.emplace_back(std::move(*tile));
+			{
+				tile->owner->tiles.emplace_back(std::move(*tile)); // Is moving really necessary here?
+				//tile->owner->tiles.emplace_back(new tpp::Tile);
+			}
 
 			onTileRead.fire(*tile);
 		}

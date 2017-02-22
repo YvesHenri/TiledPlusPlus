@@ -109,6 +109,22 @@ void printFileData(tpp::File* file)
 					printf("Object of ID %d belongs to group \'%s\' \n", object.second.id, object.second.owner->name.c_str());
 				}
 			}
+			else if (layer->material == tpp::Material::Tile)
+			{
+				auto tileLayer = static_cast<tpp::TileLayer*>(layer.get());
+
+				for (const auto& tile : tileLayer->tiles)
+				{
+					if (tile.isFlippedDiagonally)
+						printf("isFlippedDiagonally (%d) \n", tile.gid);
+					if (tile.isFlippedVertically)
+						printf("isFlippedVertically (%d) \n", tile.gid);
+					if (tile.isFlippedHorizontally)
+						printf("isFlippedHorizontally (%d) \n", tile.gid);
+					if (tile.isFlippedDiagonally || tile.isFlippedHorizontally || tile.isFlippedVertically)
+						printf("----------------- \n");
+				}
+			}
 		}
 	}
 }

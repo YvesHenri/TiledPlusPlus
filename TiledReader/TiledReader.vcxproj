@@ -332,6 +332,7 @@
     <ClInclude Include="Includes\IO\File\Structure\TileLayer.h" />
     <ClInclude Include="Includes\IO\File\Structure\TileSet.h" />
     <ClInclude Include="Includes\Macros\API.h" />
+    <ClInclude Include="Includes\Macros\Flags.h" />
     <ClInclude Include="Includes\Macros\OS.h" />
   </ItemGroup>
   <ItemGroup>
