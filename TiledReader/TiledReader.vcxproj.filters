@@ -27,24 +27,6 @@
     <ClInclude Include="Includes\Dependencies\Miniz\miniz.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Includes\Event\Delegate\Exception\UnboundDelegateException.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Includes\Event\Delegate\Functor\FreeFunctionFunctor.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Includes\Event\Delegate\Functor\Functor.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Includes\Event\Delegate\Functor\MemberConstFunctionFunctor.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Includes\Event\Delegate\Functor\MemberFunctionFunctor.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Includes\Event\Delegate\Delegate.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Includes\Event\Event.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -156,6 +138,24 @@
     <ClInclude Include="Includes\Macros\Flags.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Includes\Dependencies\Delegator\Exception\UnboundDelegateException.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Includes\Dependencies\Delegator\Functor\FreeFunctionFunctor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Includes\Dependencies\Delegator\Functor\Functor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Includes\Dependencies\Delegator\Functor\MemberConstFunctionFunctor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Includes\Dependencies\Delegator\Functor\MemberFunctionFunctor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Includes\Dependencies\Delegator\Delegate.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Sources\Dependencies\Pugi\pugixml.cpp">
@@ -226,19 +226,19 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Includes\Event\Delegate\Functor\Inline\FreeFunctionFunctor.inl">
-      <Filter>Header Files</Filter>
-    </None>
-    <None Include="Includes\Event\Delegate\Functor\Inline\MemberConstFunctionFunctor.inl">
-      <Filter>Header Files</Filter>
-    </None>
-    <None Include="Includes\Event\Delegate\Functor\Inline\MemberFunctionFunctor.inl">
-      <Filter>Header Files</Filter>
-    </None>
-    <None Include="Includes\Event\Delegate\Inline\Delegate.inl">
-      <Filter>Header Files</Filter>
-    </None>
     <None Include="Includes\Event\Inline\Event.inl">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="Includes\Dependencies\Delegator\Functor\Inline\FreeFunctionFunctor.inl">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="Includes\Dependencies\Delegator\Functor\Inline\MemberConstFunctionFunctor.inl">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="Includes\Dependencies\Delegator\Functor\Inline\MemberFunctionFunctor.inl">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="Includes\Dependencies\Delegator\Inline\Delegate.inl">
       <Filter>Header Files</Filter>
     </None>
   </ItemGroup>

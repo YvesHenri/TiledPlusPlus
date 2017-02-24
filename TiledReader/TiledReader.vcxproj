@@ -299,12 +299,12 @@
     <ClInclude Include="Includes\IO\File\Enum\Orientation.h" />
     <ClInclude Include="Includes\IO\File\Enum\RenderOrder.h" />
     <ClInclude Include="Includes\IO\File\Enum\Shape.h" />
-    <ClInclude Include="Includes\Event\Delegate\Delegate.h" />
-    <ClInclude Include="Includes\Event\Delegate\Exception\UnboundDelegateException.h" />
-    <ClInclude Include="Includes\Event\Delegate\Functor\FreeFunctionFunctor.h" />
-    <ClInclude Include="Includes\Event\Delegate\Functor\Functor.h" />
-    <ClInclude Include="Includes\Event\Delegate\Functor\MemberConstFunctionFunctor.h" />
-    <ClInclude Include="Includes\Event\Delegate\Functor\MemberFunctionFunctor.h" />
+    <ClInclude Include="Includes\Dependencies\Delegator\Delegate.h" />
+    <ClInclude Include="Includes\Dependencies\Delegator\Exception\UnboundDelegateException.h" />
+    <ClInclude Include="Includes\Dependencies\Delegator\Functor\FreeFunctionFunctor.h" />
+    <ClInclude Include="Includes\Dependencies\Delegator\Functor\Functor.h" />
+    <ClInclude Include="Includes\Dependencies\Delegator\Functor\MemberConstFunctionFunctor.h" />
+    <ClInclude Include="Includes\Dependencies\Delegator\Functor\MemberFunctionFunctor.h" />
     <ClInclude Include="Includes\Event\Event.h" />
     <ClInclude Include="Includes\IO\File\Enum\StaggerAxis.h" />
     <ClInclude Include="Includes\IO\File\Enum\StaggerIndex.h" />
@@ -360,10 +360,10 @@
     <ClCompile Include="Sources\IO\File\Structure\TileSet.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Includes\Event\Delegate\Functor\Inline\FreeFunctionFunctor.inl" />
-    <None Include="Includes\Event\Delegate\Functor\Inline\MemberConstFunctionFunctor.inl" />
-    <None Include="Includes\Event\Delegate\Functor\Inline\MemberFunctionFunctor.inl" />
-    <None Include="Includes\Event\Delegate\Inline\Delegate.inl" />
+    <None Include="Includes\Dependencies\Delegator\Functor\Inline\FreeFunctionFunctor.inl" />
+    <None Include="Includes\Dependencies\Delegator\Functor\Inline\MemberConstFunctionFunctor.inl" />
+    <None Include="Includes\Dependencies\Delegator\Functor\Inline\MemberFunctionFunctor.inl" />
+    <None Include="Includes\Dependencies\Delegator\Inline\Delegate.inl" />
     <None Include="Includes\Event\Inline\Event.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

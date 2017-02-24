@@ -3,7 +3,7 @@
 
 #include <vector>
 
-#include "Delegate\Delegate.h"
+#include "Dependencies\Delegator\Delegate.h"
 
 namespace evt
 {
