@@ -5,11 +5,6 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TiledReader", "TiledReader\TiledReader.vcxproj", "{55EF4847-FC17-4B0B-8A0E-334C0AFE69C7}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TiledReaderUnitTest", "TiledReaderUnitTest\TiledReaderUnitTest.vcxproj", "{F705E42C-4A16-4C9E-B9EC-5A36C5145BA9}"
-	ProjectSection(ProjectDependencies) = postProject
-		{55EF4847-FC17-4B0B-8A0E-334C0AFE69C7} = {55EF4847-FC17-4B0B-8A0E-334C0AFE69C7}
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug Static|x64 = Debug Static|x64
@@ -38,22 +33,6 @@ Global
 		{55EF4847-FC17-4B0B-8A0E-334C0AFE69C7}.Release|x64.Build.0 = Release|x64
 		{55EF4847-FC17-4B0B-8A0E-334C0AFE69C7}.Release|x86.ActiveCfg = Release|Win32
 		{55EF4847-FC17-4B0B-8A0E-334C0AFE69C7}.Release|x86.Build.0 = Release|Win32
-		{F705E42C-4A16-4C9E-B9EC-5A36C5145BA9}.Debug Static|x64.ActiveCfg = Debug|x64
-		{F705E42C-4A16-4C9E-B9EC-5A36C5145BA9}.Debug Static|x64.Build.0 = Debug|x64
-		{F705E42C-4A16-4C9E-B9EC-5A36C5145BA9}.Debug Static|x86.ActiveCfg = Debug Static|Win32
-		{F705E42C-4A16-4C9E-B9EC-5A36C5145BA9}.Debug Static|x86.Build.0 = Debug Static|Win32
-		{F705E42C-4A16-4C9E-B9EC-5A36C5145BA9}.Debug|x64.ActiveCfg = Debug|x64
-		{F705E42C-4A16-4C9E-B9EC-5A36C5145BA9}.Debug|x64.Build.0 = Debug|x64
-		{F705E42C-4A16-4C9E-B9EC-5A36C5145BA9}.Debug|x86.ActiveCfg = Debug|Win32
-		{F705E42C-4A16-4C9E-B9EC-5A36C5145BA9}.Debug|x86.Build.0 = Debug|Win32
-		{F705E42C-4A16-4C9E-B9EC-5A36C5145BA9}.Release Static|x64.ActiveCfg = Release|x64
-		{F705E42C-4A16-4C9E-B9EC-5A36C5145BA9}.Release Static|x64.Build.0 = Release|x64
-		{F705E42C-4A16-4C9E-B9EC-5A36C5145BA9}.Release Static|x86.ActiveCfg = Release Static|Win32
-		{F705E42C-4A16-4C9E-B9EC-5A36C5145BA9}.Release Static|x86.Build.0 = Release Static|Win32
-		{F705E42C-4A16-4C9E-B9EC-5A36C5145BA9}.Release|x64.ActiveCfg = Release|x64
-		{F705E42C-4A16-4C9E-B9EC-5A36C5145BA9}.Release|x64.Build.0 = Release|x64
-		{F705E42C-4A16-4C9E-B9EC-5A36C5145BA9}.Release|x86.ActiveCfg = Release|Win32
-		{F705E42C-4A16-4C9E-B9EC-5A36C5145BA9}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
