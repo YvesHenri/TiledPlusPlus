@@ -287,15 +287,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Includes\Dependencies\Delegator\Delegator\Includes\Delegate.h" />
-    <ClInclude Include="Includes\Dependencies\Delegator\Delegator\Includes\Functor\FreeFunctionFunctor.h" />
-    <ClInclude Include="Includes\Dependencies\Delegator\Delegator\Includes\Functor\Functor.h" />
-    <ClInclude Include="Includes\Dependencies\Delegator\Delegator\Includes\Functor\MemberConstFunctionFunctor.h" />
-    <ClInclude Include="Includes\Dependencies\Delegator\Delegator\Includes\Functor\MemberFunctionFunctor.h" />
-    <ClInclude Include="Includes\Dependencies\Delegator\Delegator\Includes\Macros.h" />
+    <ClInclude Include="Includes\Dependencies\Delegator\Delegate\Includes\Delegate.h" />
+    <ClInclude Include="Includes\Dependencies\Delegator\Delegate\Includes\Functor\FreeFunctionFunctor.h" />
+    <ClInclude Include="Includes\Dependencies\Delegator\Delegate\Includes\Functor\Functor.h" />
+    <ClInclude Include="Includes\Dependencies\Delegator\Delegate\Includes\Functor\MemberConstFunctionFunctor.h" />
+    <ClInclude Include="Includes\Dependencies\Delegator\Delegate\Includes\Functor\MemberFunctionFunctor.h" />
+    <ClInclude Include="Includes\Dependencies\Delegator\Delegate\Includes\Macros.h" />
     <ClInclude Include="Includes\Dependencies\Miniz\miniz.h" />
     <ClInclude Include="Includes\Dependencies\Pugi\pugiconfig.hpp" />
     <ClInclude Include="Includes\Dependencies\Pugi\pugixml.hpp" />
+    <ClInclude Include="Includes\Event\TileParsedEvent.h" />
     <ClInclude Include="Includes\IO\Compression\Decoder.h" />
     <ClInclude Include="Includes\IO\File\Builder\FileReaderSettings.h" />
     <ClInclude Include="Includes\IO\File\Enum\Compression.h" />
@@ -311,7 +312,7 @@
     <ClInclude Include="Includes\IO\File\Enum\Type.h" />
     <ClInclude Include="Includes\IO\File\File.h" />
     <ClInclude Include="Includes\IO\File\FileMetadata.h" />
-    <ClInclude Include="Includes\IO\File\Builder\FileParser.h" />
+    <ClInclude Include="Includes\IO\File\Builder\FileMetadataParser.h" />
     <ClInclude Include="Includes\IO\File\Builder\FileReader.h" />
     <ClInclude Include="Includes\IO\File\Structure\CroppedImage.h" />
     <ClInclude Include="Includes\IO\Path\Path.h" />
@@ -336,13 +337,13 @@
     <ClInclude Include="Includes\Macros\OS.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Includes\Dependencies\Delegator\Delegator\Sources\Main.cpp" />
+    <ClCompile Include="Includes\Dependencies\Delegator\Delegate\Sources\Library.cpp" />
     <ClCompile Include="Sources\Dependencies\Miniz\miniz.c" />
     <ClCompile Include="Sources\Dependencies\Pugi\pugixml.cpp" />
     <ClCompile Include="Sources\IO\Compression\Decoder.cpp" />
     <ClCompile Include="Sources\IO\File\File.cpp" />
     <ClCompile Include="Sources\IO\File\FileMetadata.cpp" />
-    <ClCompile Include="Sources\IO\File\Builder\FileParser.cpp" />
+    <ClCompile Include="Sources\IO\File\Builder\FileMetadataParser.cpp" />
     <ClCompile Include="Sources\IO\File\Builder\FileReader.cpp" />
     <ClCompile Include="Sources\IO\File\Structure\ImageLayer.cpp" />
     <ClCompile Include="Sources\IO\File\Structure\ObjectLayer.cpp" />
@@ -361,10 +362,10 @@
     <ClCompile Include="Sources\IO\File\Structure\TileSet.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Includes\Dependencies\Delegator\Delegator\Inlines\Delegate.inl" />
-    <None Include="Includes\Dependencies\Delegator\Delegator\Inlines\Functor\FreeFunctionFunctor.inl" />
-    <None Include="Includes\Dependencies\Delegator\Delegator\Inlines\Functor\MemberConstFunctionFunctor.inl" />
-    <None Include="Includes\Dependencies\Delegator\Delegator\Inlines\Functor\MemberFunctionFunctor.inl" />
+    <None Include="Includes\Dependencies\Delegator\Delegate\Inlines\Delegate.inl" />
+    <None Include="Includes\Dependencies\Delegator\Delegate\Inlines\Functor\FreeFunctionFunctor.inl" />
+    <None Include="Includes\Dependencies\Delegator\Delegate\Inlines\Functor\MemberConstFunctionFunctor.inl" />
+    <None Include="Includes\Dependencies\Delegator\Delegate\Inlines\Functor\MemberFunctionFunctor.inl" />
     <None Include="Includes\Event\Inline\Event.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

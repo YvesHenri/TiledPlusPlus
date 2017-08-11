@@ -1,8 +1,8 @@
-#include "IO\File\Builder\FileParser.h"
+#include "IO\File\Builder\FileMetadataParser.h"
 
 namespace tpp
 {
-	tpp::FileMetadata FileParser::parseMetadata(const std::string& path)
+	tpp::FileMetadata FileMetadataParser::parseMetadata(const std::string& path)
 	{
 		pugi::xml_document document;
 		pugi::xml_parse_result result;
@@ -39,7 +39,7 @@ namespace tpp
 			throw std::runtime_error(result.description());
 	}
 
-	tpp::Header FileParser::parseHeader(const pugi::xml_node& mapNode)
+	tpp::Header FileMetadataParser::parseHeader(const pugi::xml_node& mapNode)
 	{
 		tpp::Header header;
 
@@ -124,7 +124,7 @@ namespace tpp
 		return header;
 	}
 
-	tpp::PropertySet FileParser::parseProperties(const pugi::xml_node& propertiesNode)
+	tpp::PropertySet FileMetadataParser::parseProperties(const pugi::xml_node& propertiesNode)
 	{
 		tpp::PropertySet properties;
 
@@ -140,7 +140,7 @@ namespace tpp
 		return properties;
 	}
 
-	tpp::TileSets FileParser::parseTileSets(const pugi::xml_node& mapNode)
+	tpp::TileSets FileMetadataParser::parseTileSets(const pugi::xml_node& mapNode)
 	{
 		tpp::TileSets sets;
 
@@ -216,7 +216,7 @@ namespace tpp
 		return sets;
 	}
 
-	tpp::Layers FileParser::parseLayers(const pugi::xml_node& mapNode)
+	tpp::Layers FileMetadataParser::parseLayers(const pugi::xml_node& mapNode)
 	{
 		tpp::Layers layers;
 
@@ -234,7 +234,7 @@ namespace tpp
 		return layers;
 	}
 
-	tpp::ImageLayer* FileParser::parseImageLayer(const pugi::xml_node& imageLayerNode)
+	tpp::ImageLayer* FileMetadataParser::parseImageLayer(const pugi::xml_node& imageLayerNode)
 	{
 		tpp::ImageLayer* imageLayer = new tpp::ImageLayer;
 
@@ -268,7 +268,7 @@ namespace tpp
 		return imageLayer;
 	}
 
-	tpp::TileLayer* FileParser::parseTileLayer(const pugi::xml_node& tileLayerNode)
+	tpp::TileLayer* FileMetadataParser::parseTileLayer(const pugi::xml_node& tileLayerNode)
 	{
 		tpp::TileLayer* tileLayer = new tpp::TileLayer;
 
@@ -333,7 +333,7 @@ namespace tpp
 		return tileLayer;
 	}
 
-	tpp::ObjectLayer* FileParser::parseObjectLayer(const pugi::xml_node& objectLayerNode)
+	tpp::ObjectLayer* FileMetadataParser::parseObjectLayer(const pugi::xml_node& objectLayerNode)
 	{
 		tpp::ObjectLayer* objectLayer = new tpp::ObjectLayer;
 
@@ -374,7 +374,7 @@ namespace tpp
 		return objectLayer;
 	}
 
-	tpp::Object FileParser::parseObject(const pugi::xml_node& objectNode, const tpp::ObjectLayer* objectLayer)
+	tpp::Object FileMetadataParser::parseObject(const pugi::xml_node& objectNode, const tpp::ObjectLayer* objectLayer)
 	{
 		tpp::Object object;
 

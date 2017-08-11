@@ -6,13 +6,13 @@ namespace tpp
 	{
 		m_settings = settings;
 
-		m_parser.onHeaderParsed.attach(evt::Delegate<void(tpp::Header*)>(&FileReader::onHeaderParsed, this));
-		m_parser.onObjectParsed.attach(evt::Delegate<void(tpp::Object*)>(&FileReader::onObjectParsed, this));
-		m_parser.onTileParsed.attach(evt::Delegate<void(tpp::Tile*)>(&FileReader::onTileParsed, this));
-		m_parser.onTileSetParsed.attach(evt::Delegate<void(tpp::TileSet*)>(&FileReader::onTileSetParsed, this));
-		m_parser.onTileLayerParsed.attach(evt::Delegate<void(tpp::TileLayer*)>(&FileReader::onTileLayerParsed, this));
-		m_parser.onImageLayerParsed.attach(evt::Delegate<void(tpp::ImageLayer*)>(&FileReader::onImageLayerParsed, this));
-		m_parser.onObjectLayerParsed.attach(evt::Delegate<void(tpp::ObjectLayer*)>(&FileReader::onObjectLayerParsed, this));
+		m_parser.onHeaderParsed.attach(Delegate<void(tpp::Header*)>(&FileReader::onHeaderParsed, this));
+		m_parser.onObjectParsed.attach(Delegate<void(tpp::Object*)>(&FileReader::onObjectParsed, this));
+		m_parser.onTileParsed.attach(Delegate<void(tpp::Tile*)>(&FileReader::onTileParsed, this));
+		m_parser.onTileSetParsed.attach(Delegate<void(tpp::TileSet*)>(&FileReader::onTileSetParsed, this));
+		m_parser.onTileLayerParsed.attach(Delegate<void(tpp::TileLayer*)>(&FileReader::onTileLayerParsed, this));
+		m_parser.onImageLayerParsed.attach(Delegate<void(tpp::ImageLayer*)>(&FileReader::onImageLayerParsed, this));
+		m_parser.onObjectLayerParsed.attach(Delegate<void(tpp::ObjectLayer*)>(&FileReader::onObjectLayerParsed, this));
 	}
 
 	tpp::File FileReader::read(const tpp::Path& path)

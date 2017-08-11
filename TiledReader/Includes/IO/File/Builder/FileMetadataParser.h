@@ -10,7 +10,7 @@
 namespace tpp
 {
 	// XML parser. It uses/requires the pugixml lib.
-	class TILEDPP_API FileParser final
+	class TILEDPP_API FileMetadataParser final
 	{
 	public:
 		tpp::FileMetadata parseMetadata(const std::string& path);

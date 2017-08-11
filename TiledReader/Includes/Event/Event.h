@@ -3,7 +3,7 @@
 
 #include <vector>
 
-#include "Dependencies\Delegator\Delegate.h"
+#include "Dependencies\Delegator\Delegate\Includes\Delegate.h"
 
 namespace evt
 {
@@ -13,16 +13,16 @@ namespace evt
 	class Event
 	{
 	public:
+		bool muted();
 		void mute();
 		void unmute();
-		bool muted();
 		void fire(TArgs... args);
-		void attach(evt::Delegate<void(TArgs...)>& delegate);
-		void detach(evt::Delegate<void(TArgs...)>& delegate);
+		void attach(Delegate<void(TArgs...)>& delegate);
+		void detach(Delegate<void(TArgs...)>& delegate);
 
 	private:
 		bool m_muted;
-		std::vector<evt::Delegate<void(TArgs...)>> m_delegates;
+		std::vector<Delegate<void(TArgs...)>> m_delegates;
 	};
 }
 

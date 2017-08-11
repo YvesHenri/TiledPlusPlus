@@ -4,7 +4,7 @@
 
 #include "IO\File\File.h"
 #include "IO\File\Enum\Flip.h"
-#include "IO\File\Builder\FileParser.h"
+#include "IO\File\Builder\FileMetadataParser.h"
 #include "IO\File\Builder\FileReaderSettings.h"
 #include "IO\Compression\Decoder.h"
 
@@ -38,7 +38,7 @@ namespace tpp
 		evt::Event<const tpp::ObjectLayer&> onObjectLayerRead;
 
 	private:
-		tpp::FileParser m_parser;
+		tpp::FileMetadataParser m_parser;
 		tpp::FileReaderSettings m_settings;
 	};
 }

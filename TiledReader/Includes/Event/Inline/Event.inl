@@ -4,7 +4,7 @@
 namespace evt
 {
 	template <typename... TArgs>
-	void Event<TArgs...>::attach(evt::Delegate<void(TArgs...)>& delegate)
+	void Event<TArgs...>::attach(Delegate<void(TArgs...)>& delegate)
 	{
 		auto& iter = std::find(m_delegates.begin(), m_delegates.end(), delegate);
 
@@ -14,7 +14,7 @@ namespace evt
 	}
 
 	template <typename... TArgs>
-	void Event<TArgs...>::detach(evt::Delegate<void(TArgs...)>& delegate)
+	void Event<TArgs...>::detach(Delegate<void(TArgs...)>& delegate)
 	{
 		auto& iter = std::find(m_delegates.begin(), m_delegates.end(), delegate);
 
