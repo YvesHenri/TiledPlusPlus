@@ -138,6 +138,24 @@
     <ClInclude Include="Includes\Macros\Flags.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Includes\Dependencies\Delegator\Delegator\Includes\Functor\FreeFunctionFunctor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Includes\Dependencies\Delegator\Delegator\Includes\Functor\Functor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Includes\Dependencies\Delegator\Delegator\Includes\Functor\MemberConstFunctionFunctor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Includes\Dependencies\Delegator\Delegator\Includes\Functor\MemberFunctionFunctor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Includes\Dependencies\Delegator\Delegator\Includes\Delegate.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Includes\Dependencies\Delegator\Delegator\Includes\Macros.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Sources\Dependencies\Pugi\pugixml.cpp">
@@ -206,9 +224,24 @@
     <ClCompile Include="Sources\IO\File\Structure\ImageLayer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Includes\Dependencies\Delegator\Delegator\Sources\Main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Includes\Event\Inline\Event.inl">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="Includes\Dependencies\Delegator\Delegator\Inlines\Functor\FreeFunctionFunctor.inl">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="Includes\Dependencies\Delegator\Delegator\Inlines\Functor\MemberConstFunctionFunctor.inl">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="Includes\Dependencies\Delegator\Delegator\Inlines\Functor\MemberFunctionFunctor.inl">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="Includes\Dependencies\Delegator\Delegator\Inlines\Delegate.inl">
       <Filter>Header Files</Filter>
     </None>
   </ItemGroup>

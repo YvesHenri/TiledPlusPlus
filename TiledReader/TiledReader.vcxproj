@@ -287,6 +287,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Includes\Dependencies\Delegator\Delegator\Includes\Delegate.h" />
+    <ClInclude Include="Includes\Dependencies\Delegator\Delegator\Includes\Functor\FreeFunctionFunctor.h" />
+    <ClInclude Include="Includes\Dependencies\Delegator\Delegator\Includes\Functor\Functor.h" />
+    <ClInclude Include="Includes\Dependencies\Delegator\Delegator\Includes\Functor\MemberConstFunctionFunctor.h" />
+    <ClInclude Include="Includes\Dependencies\Delegator\Delegator\Includes\Functor\MemberFunctionFunctor.h" />
+    <ClInclude Include="Includes\Dependencies\Delegator\Delegator\Includes\Macros.h" />
     <ClInclude Include="Includes\Dependencies\Miniz\miniz.h" />
     <ClInclude Include="Includes\Dependencies\Pugi\pugiconfig.hpp" />
     <ClInclude Include="Includes\Dependencies\Pugi\pugixml.hpp" />
@@ -330,6 +336,7 @@
     <ClInclude Include="Includes\Macros\OS.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Includes\Dependencies\Delegator\Delegator\Sources\Main.cpp" />
     <ClCompile Include="Sources\Dependencies\Miniz\miniz.c" />
     <ClCompile Include="Sources\Dependencies\Pugi\pugixml.cpp" />
     <ClCompile Include="Sources\IO\Compression\Decoder.cpp" />
@@ -354,6 +361,10 @@
     <ClCompile Include="Sources\IO\File\Structure\TileSet.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Includes\Dependencies\Delegator\Delegator\Inlines\Delegate.inl" />
+    <None Include="Includes\Dependencies\Delegator\Delegator\Inlines\Functor\FreeFunctionFunctor.inl" />
+    <None Include="Includes\Dependencies\Delegator\Delegator\Inlines\Functor\MemberConstFunctionFunctor.inl" />
+    <None Include="Includes\Dependencies\Delegator\Delegator\Inlines\Functor\MemberFunctionFunctor.inl" />
     <None Include="Includes\Event\Inline\Event.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
